@@ -2,12 +2,13 @@ package model;
 
 public class WholeItem extends Item {
     
-    public WholeItem(String name, String unit, int expWeeklyUsage, int weeklyUsage, int desiredQty, int quantity) {
+    public WholeItem(String name, String unit, int expWeeklyUsage, int weeklyUsage, int desiredQty, int quantity, int preferredQty) {
         super(name, unit);
         this.expWeeklyUsage = expWeeklyUsage;
         this.weeklyUsage = weeklyUsage;
         this.desiredQty = desiredQty;
         this.quantity = quantity;
+        this.purchaseQty = preferredQty;
     }
 
     @Override
@@ -56,6 +57,16 @@ public class WholeItem extends Item {
         int deltaQty = qty.intValue();
         
         this.quantity = currQty - deltaQty;
+    }
+
+    @Override
+    public Integer getPurchaseQty() {
+        return this.purchaseQty.intValue();
+    }
+
+    @Override
+    public void setPurchaseQty(Number qty) {
+        this.purchaseQty = qty.intValue();
     }
 
 }

@@ -2,12 +2,13 @@ package model;
 
 public class FractionalItem extends Item {
 
-    public FractionalItem(String name, String unit, double expWeeklyUsage, double weeklyUsage, double desiredQty, double quantity) {
+    public FractionalItem(String name, String unit, double expWeeklyUsage, double weeklyUsage, double desiredQty, double quantity, double preferredQty) {
         super(name, unit);
         this.expWeeklyUsage = expWeeklyUsage;
         this.weeklyUsage = weeklyUsage;
         this.desiredQty = desiredQty;
         this.quantity = quantity;
+        this.purchaseQty = preferredQty;
     }
 
     @Override
@@ -56,6 +57,16 @@ public class FractionalItem extends Item {
         double deltaQty = qty.doubleValue();
         
         this.quantity = currQty - deltaQty;
+    }
+
+    @Override
+    public Double getPurchaseQty() {
+        return this.purchaseQty.doubleValue();
+    }
+
+    @Override
+    public void setPurchaseQty(Number qty) {
+        this.purchaseQty = qty.doubleValue();
     }
 
 }
