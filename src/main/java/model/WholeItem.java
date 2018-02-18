@@ -2,13 +2,13 @@ package model;
 
 public class WholeItem extends Item {
     
-    public WholeItem(String name, String unit, int expWeeklyUsage, int weeklyUsage, int desiredQty, int quantity, int preferredQty) {
-        super(name, unit);
+    public WholeItem(String name, String unit, int expWeeklyUsage, int weeklyUsage, int desiredQty, int quantity, boolean predictable, int minQty) {
+        super(name, unit, predictable);
         this.expWeeklyUsage = expWeeklyUsage;
         this.weeklyUsage = weeklyUsage;
         this.desiredQty = desiredQty;
         this.quantity = quantity;
-        this.purchaseQty = preferredQty;
+        this.minQty = minQty;
     }
 
     @Override
@@ -60,13 +60,13 @@ public class WholeItem extends Item {
     }
 
     @Override
-    public Integer getPurchaseQty() {
-        return this.purchaseQty.intValue();
+    public Integer getMinQuantity(Number qty) {
+        return this.minQty.intValue();
     }
 
     @Override
-    public void setPurchaseQty(Number qty) {
-        this.purchaseQty = qty.intValue();
+    public void setMinQuantity(Number qty) {
+        this.minQty = qty.intValue();
     }
 
 }

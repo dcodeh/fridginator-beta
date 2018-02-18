@@ -2,13 +2,13 @@ package model;
 
 public class FractionalItem extends Item {
 
-    public FractionalItem(String name, String unit, double expWeeklyUsage, double weeklyUsage, double desiredQty, double quantity, double preferredQty) {
-        super(name, unit);
+    public FractionalItem(String name, String unit, double expWeeklyUsage, double weeklyUsage, double desiredQty, double quantity, boolean predictable, double minQty) {
+        super(name, unit, predictable);
         this.expWeeklyUsage = expWeeklyUsage;
         this.weeklyUsage = weeklyUsage;
         this.desiredQty = desiredQty;
         this.quantity = quantity;
-        this.purchaseQty = preferredQty;
+        this.minQty = minQty;
     }
 
     @Override
@@ -60,13 +60,13 @@ public class FractionalItem extends Item {
     }
 
     @Override
-    public Double getPurchaseQty() {
-        return this.purchaseQty.doubleValue();
+    public Double getMinQuantity(Number qty) {
+        return this.minQty.doubleValue();
     }
 
     @Override
-    public void setPurchaseQty(Number qty) {
-        this.purchaseQty = qty.doubleValue();
+    public void setMinQuantity(Number qty) {
+        this.minQty = qty.doubleValue();
     }
 
 }
