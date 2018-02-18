@@ -60,13 +60,23 @@ public class FractionalItem extends Item {
     }
 
     @Override
-    public Double getMinQuantity(Number qty) {
+    public Double getMinQuantity() {
         return this.minQty.doubleValue();
     }
 
     @Override
     public void setMinQuantity(Number qty) {
         this.minQty = qty.doubleValue();
+    }
+
+    @Override
+    public void shareItemWithUser(User u, Number qty) {
+        this.usersSharing.put(u, qty.doubleValue());
+    }
+
+    @Override
+    public void unshareItemWithUser(User u) {
+        this.usersSharing.remove(u);
     }
 
 }

@@ -60,13 +60,23 @@ public class WholeItem extends Item {
     }
 
     @Override
-    public Integer getMinQuantity(Number qty) {
+    public Integer getMinQuantity() {
         return this.minQty.intValue();
     }
 
     @Override
     public void setMinQuantity(Number qty) {
         this.minQty = qty.intValue();
+    }
+
+    @Override
+    public void shareItemWithUser(User u, Number qty) {
+        this.usersSharing.put(u, qty.intValue());
+    }
+
+    @Override
+    public void unshareItemWithUser(User u) {
+        this.usersSharing.remove(u);
     }
 
 }

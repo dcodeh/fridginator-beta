@@ -1,5 +1,6 @@
 package model;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 /**
@@ -66,39 +67,126 @@ public abstract class Item {
      */
     protected boolean predictable;
     
+    /**
+     * Stores all of the users who are sharing this item, and the quantities they expect to use.
+     */
+    protected HashMap<User, Number> usersSharing;
+    
+    /**
+     * Common information for all items....though this item can't be instantiated directly.
+     * @param name The name of this item...best without spaces
+     * @param unit The unit for this item...best as a singular label (e.g. gal, ct, etc)
+     * @param predictable Whether or not this item's usage is regular every week
+     */
     public Item(String name, String unit, boolean predictable) {
         this.name = name;
         this.unit = unit;
         this.predictable = predictable;
     }
 
+    /**
+     * Take a guess...
+     * @return The name of this item
+     */
     public String getName() {
         return this.name;
     }
     
+    /**
+     * This is a puzzler...
+     * @return The unit of this item
+     */
     public String getUnit() {
         return this.unit;
     }
     
+    /**
+     * Add a purchasable unit quantity to this item...maybe a 3/4 gallon of milk?
+     * @param pqty The constructed quantity to add
+     */
     public void addPurchaseQty(PurchasableQuantity pqty) {
         this.purchasableQuantities.add(pqty);
     }
     
+    /**
+     * Remove a purchasable unit quantity from this item...it turns out companies lose money selling milk in 3/4 gallons
+     * @param pqty The quantity to remove
+     */
     public void removePurchaseQty(PurchasableQuantity pqty) {
         this.purchasableQuantities.remove(pqty);
     }
     
-    public abstract Number getExpWeeklyUsage();
-    public abstract Number getWeeklyUsage();
-    public abstract Number getDesiredQty();
-    public abstract Number getQuantity();
-    public abstract Number getMinQuantity(Number qty);
+    /**
+     * See who all is partaking in this item, and their expected usage
+     * @return A glorious HashMap
+     */
+    public HashMap<User, Number> getUsersSharingItem() {
+        return this.usersSharing;
+    }
     
+    /**
+     * @return The total expected weekly usage of this item (for all users) 
+     */
+    public abstract Number getExpWeeklyUsage();
+    
+    /**
+     * @return The total weekly usage of this item, determined by history (for all users). 
+     */
+    public abstract Number getWeeklyUsage();
+    
+    /**
+     * @return The amount of this item you would like to have in your fridge
+     */
+    public abstract Number getDesiredQty();
+    
+    /**
+     * @return The amount of this item currently in your fridge
+     */
+    public abstract Number getQuantity();
+    
+    /**
+     * @return The minimum amount of this product you would like to have in your fridge
+     */
+    public abstract Number getMinQuantity();
+    
+    /**
+     * @param exp Manually set the expected usage for this item per week for all users.
+     */
     public abstract void setExpWeeklyUsage(Number exp);
+    
+    /**
+     * @param usage Manually set how much of this item will be used per week for all users.
+     */
     public abstract void setWeeklyUsage(Number usage);
+    
+    /**
+     * @param qty Change the desired amount of this item in your fridge.
+     */
     public abstract void setDesiredQty(Number qty);
+    
+    /**
+     * @param qty Change the amount of this item you currently have in your fridge.
+     */
     public abstract void setQuantity(Number qty);
+    
+    /**
+     * @param qty Change the minimum amount you want to have in your fridge.
+     */
     public abstract void setMinQuantity(Number qty);
     
+    /**
+     * @param qty Reduce the amount of this item you have in your fridge
+     */
     public abstract void decrementQty(Number qty);
+    
+    /**
+     * @param u Share the love with this user
+     * @param qty How much love this user wants to use each week.
+     */
+    public abstract void shareItemWithUser(User u, Number qty);
+    
+    /**
+     * @param u Banish this user from the glorious riches of this item.
+     */
+    public abstract void unshareItemWithUser(User u);
 }
