@@ -14,6 +14,18 @@ public class User {
     private HashSet<Item> sharedItems;
     private double moneySaved;
     private double moneySpent;
+    private ShoppingList list;
+    
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        
+        sharedItems = new HashSet<Item>();
+        moneySaved = 0.0;
+        moneySpent = 0.0;
+        
+        list = new ShoppingList();
+    }
     
     public String getUsername() {
         return username;
