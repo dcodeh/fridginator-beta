@@ -1,6 +1,7 @@
 package model;
 
 import java.util.HashSet;
+import java.util.Objects;
 
 /**
  * Represents all of the information needed for a user.
@@ -60,6 +61,25 @@ public class User {
     
     public void resetMoneySaved() {
         this.moneySaved = 0.0;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof User) {
+            User that = (User) o;
+            
+            // good 'nuff
+            return this.username.equals(that.getUsername()) &&
+                   this.password.equals(that.getPassword());
+        } else {
+            return false;
+        }
+    }
+    
+    @Override
+    public int hashCode() {
+        // good 'nuff
+        return Objects.hash(username, password);
     }
 
 }

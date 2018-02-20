@@ -78,5 +78,14 @@ public class FractionalItem extends Item {
     public void unshareItemWithUser(User u) {
         this.usersSharing.remove(u);
     }
+    
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof FractionalItem) {
+            return super.equals(o);
+        } else {
+            return false;
+        }
+    }
 
 }

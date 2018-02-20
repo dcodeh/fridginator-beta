@@ -49,6 +49,6 @@ public class PurchasableQuantity {
     
     @Override
     public int hashCode() {
-        return Objects.hash(unit + amount);
+        return Objects.hash(unit, amount);
     }
 }

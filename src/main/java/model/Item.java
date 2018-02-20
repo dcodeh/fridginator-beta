@@ -2,6 +2,7 @@ package model;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
 
 /**
  * This class is the common ancestor of all items in the fridge.
@@ -150,6 +151,13 @@ public abstract class Item {
     public abstract Number getMinQuantity();
     
     /**
+     * @return Whether or not this item is predictable from week to week
+     */
+    public boolean getIsPredictable() {
+        return this.predictable;
+    }
+    
+    /**
      * @param exp Manually set the expected usage for this item per week for all users.
      */
     public abstract void setExpWeeklyUsage(Number exp);
@@ -189,4 +197,28 @@ public abstract class Item {
      * @param u Banish this user from the glorious riches of this item.
      */
     public abstract void unshareItemWithUser(User u);
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, unit, expWeeklyUsage, weeklyUsage, desiredQty, minQty, quantity, predictable);
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof Item) {
+            Item that = (Item) o;
+            
+            // just see if everything is the same...easy
+            return this.name.equals(that.getName()) &&
+                   this.unit.equals(that.getUnit()) && 
+                   this.expWeeklyUsage.equals(that.getExpWeeklyUsage()) &&
+                   this.weeklyUsage.equals(that.getWeeklyUsage()) &&
+                   this.desiredQty.equals(that.getDesiredQty()) &&
+                   this.minQty.equals(that.getMinQuantity()) &&
+                   this.quantity.equals(that.getQuantity()) &&
+                   (this.predictable == that.getIsPredictable());
+        } else {
+            return false;
+        }
+    }
 }
