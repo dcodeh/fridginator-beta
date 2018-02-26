@@ -72,11 +72,13 @@ public class FractionalItem extends Item {
     @Override
     public void shareItemWithUser(User u, Number qty) {
         this.usersSharing.put(u, qty.doubleValue());
+        // TODO calculate quantities!
     }
-
+    
     @Override
     public void unshareItemWithUser(User u) {
-        this.usersSharing.remove(u);
+        super.unshareItemWithUser(u);
+        // TODO recalculate quantities
     }
     
     @Override

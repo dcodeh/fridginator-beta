@@ -72,13 +72,15 @@ public class WholeItem extends Item {
     @Override
     public void shareItemWithUser(User u, Number qty) {
         this.usersSharing.put(u, qty.intValue());
-    }
-
-    @Override
-    public void unshareItemWithUser(User u) {
-        this.usersSharing.remove(u);
+        // TODO calculate quantities
     }
     
+    @Override
+    public void unshareItemWithUser(User u) {
+        super.unshareItemWithUser(u);
+        // TODO recalculate quantities
+    }
+
     @Override
     public boolean equals(Object o) {
         if(o instanceof WholeItem) {

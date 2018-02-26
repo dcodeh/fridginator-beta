@@ -126,6 +126,14 @@ public abstract class Item {
     }
     
     /**
+     * @param u See if this user is sharing the item
+     * @return Whether or not user u is sharing it
+     */
+    public boolean isUserSharingItem(User u) {
+        return this.usersSharing.containsKey(u);
+    }
+    
+    /**
      * @return The total expected weekly usage of this item (for all users) 
      */
     public abstract Number getExpWeeklyUsage();
@@ -196,7 +204,9 @@ public abstract class Item {
     /**
      * @param u Banish this user from the glorious riches of this item.
      */
-    public abstract void unshareItemWithUser(User u);
+    public void unshareItemWithUser(User u) {
+        this.usersSharing.remove(u);
+    }
     
     @Override
     public int hashCode() {
