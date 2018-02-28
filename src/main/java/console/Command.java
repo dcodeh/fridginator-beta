@@ -18,6 +18,7 @@ public abstract class Command {
     public enum ExitCode {
         FAILURE, /** Something blew up :( */ 
         SUCCESS, /** Nothing blew up! */
+        QUIT     /** Strike out, rip your shirt, and pee in the nearest drinking fountain */
     }
     
     /**
@@ -39,6 +40,7 @@ public abstract class Command {
     public Command(String help, String keyword, String...arguments) {
         this.help = help;
         this.keyword = keyword;
+        this.arguments = new String[arguments.length];
         this.arguments = arguments;
     }
     
@@ -58,15 +60,24 @@ public abstract class Command {
     
     /**
      * @return this command's help message
+     * @param showUsage Whether or not to show the usage message
      */
-    public String getHelp() {
+    public String getHelp(boolean showUsage) {
         
-        String usage = Constants.GENERAL_USAGE_STRING + " ";
-        for(String s : getArguments()) {
-            usage.concat(" " + s + " ");
+        String usage = "";
+        
+        if(showUsage) {
+            usage = Constants.GENERAL_USAGE_STRING + " ";
+            usage += getKeyword() + " ";
+            for(String s : getArguments()) {
+                usage += s + " ";
+            }
+            
+            // add a newline for maximum fanciness
+            usage = "\n" + usage;
         }
         
-        return this.help + "\n" + usage;
+        return this.help + usage;
     }
     
     @Override
@@ -94,10 +105,6 @@ public abstract class Command {
      */
     public int getNumArguments() {
         return arguments.length + 1;
-    }
-    
-    public void replaceArguments(String[] arguments) {
-        this.arguments = arguments;
     }
     
     /**

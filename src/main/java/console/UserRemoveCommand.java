@@ -25,7 +25,7 @@ public class UserRemoveCommand extends Command {
         User u = fridge.getUser(args[0]);
         
         if(u == null) {
-            System.err.println("<Unkown user>");
+            System.out.println("Unkown user!");
             return ExitCode.FAILURE;
         }
         
@@ -35,7 +35,7 @@ public class UserRemoveCommand extends Command {
             }
         }
         
-        System.out.println("<Done>");
+        System.out.println("Done.");
         return ExitCode.SUCCESS; // everything is broken!
     }
 

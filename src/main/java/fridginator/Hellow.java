@@ -3,6 +3,7 @@ package fridginator;
 import java.util.Scanner;
 
 import appl.Fridge;
+import console.Command.ExitCode;
 
 // import static spark.Spark.*;
 
@@ -15,10 +16,13 @@ public class Hellow {
 		
 		Fridge f = new Fridge();
 		
-		for(int i = 0; i < 5; i++) {
-		    System.out.print("\n$ ");
-		    f.interpretCommands(stdin.nextLine());
-		}
+	    
+	    while(true) { // mature
+	        System.out.print("] ");
+	        if(f.interpretCommands(stdin.nextLine()) == ExitCode.QUIT) {
+	            break;
+	        }
+	    }
 		
 		stdin.close();
 	}

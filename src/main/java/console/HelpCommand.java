@@ -24,7 +24,7 @@ public class HelpCommand extends Command {
         System.out.println(Constants.HELP_MESSAGE);
 
         for(Command c : fridge.getCommands()) {
-            System.out.print(c.getKeyword() + "\t\t - " + c.getHelp().replaceAll(Constants.GENERAL_USAGE_STRING + " ", ""));
+            System.out.print(c.getKeyword() + "\t\t - " + c.getHelp(false /* showUsage */) + "\n");
         }
         return ExitCode.SUCCESS; // literally can't mess up
     }

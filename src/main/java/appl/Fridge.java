@@ -7,6 +7,7 @@ import java.util.HashSet;
 import console.Command;
 import console.HelpCommand;
 import console.Command.ExitCode;
+import console.ExitCommand;
 import console.UserAddCommand;
 import console.UserRemoveCommand;
 import model.Item;
@@ -81,14 +82,14 @@ public class Fridge {
         
         // if it doesn't make sense, kick 'em out
         if(command == null) {
-            System.err.println("<Unkown command!>");
+            System.out.println("Unkown command!");
             return ExitCode.FAILURE;
         }
         
         // if wrong number of arguments, kick 'em out
         if(arguments.length != command.getNumArguments()) {
-            System.err.println("<Wrong number of arguments!>");
-            System.err.println(command.getHelp());
+            System.out.println("Wrong number of arguments!");
+            System.out.println(command.getHelp(true /* showUsage */));
             return ExitCode.FAILURE;
         }
         
@@ -111,6 +112,7 @@ public class Fridge {
         commands.put(UserAddCommand.keyword, new UserAddCommand());
         commands.put(UserRemoveCommand.keyword, new UserRemoveCommand());
         commands.put(HelpCommand.keyword, new HelpCommand());
+        commands.put(ExitCommand.keyword, new ExitCommand());
     }
 
     public Collection<Command> getCommands() {
