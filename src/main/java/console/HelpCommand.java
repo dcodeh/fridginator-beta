@@ -19,7 +19,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public ExitCode doAction(Fridge fridge) {
+    public ExitCode doAction(String[] args, Fridge fridge) {
         
         System.out.println(Constants.HELP_MESSAGE);
 

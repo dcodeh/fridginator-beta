@@ -110,6 +110,6 @@ public abstract class Command {
      * However, argument validation will need to be handled here.
      * @param fridge The fridge to perform the actions on 
      */
-    public abstract ExitCode doAction(Fridge fridge);
+    public abstract ExitCode doAction(String[] args, Fridge fridge);
     
 }

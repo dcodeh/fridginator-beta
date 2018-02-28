@@ -97,10 +97,8 @@ public class Fridge {
         for(int i = 1; i < arguments.length; ++i) {
             passedArgs[i - 1] = arguments[i];
         }
-        
-        command.replaceArguments(passedArgs);
-        
-        return command.doAction(this);
+                
+        return command.doAction(passedArgs, this);
     }
     
     /**

@@ -11,7 +11,7 @@ import model.User;
  */
 public class UserAddCommand extends Command {
 
-    private static final String help = "Adds a new user to the friginator system. \n" +
+    private static final String help = "Adds a new user to the friginator system. " +
                                        "Usernames and Passwords cannot contain spaces";
     public static final String keyword = "useradd";
     private static final String[] requiredArguments = {"username", "password"};
@@ -27,12 +27,12 @@ public class UserAddCommand extends Command {
      * length criteria in Constants.java
      */
     @Override
-    public ExitCode doAction(Fridge fridge) {
+    public ExitCode doAction(String[] args, Fridge fridge) {
         
         String username, password;
         
-        username = arguments[0];
-        password = arguments[1];
+        username = args[0];
+        password = args[1];
         
         // rigorous validation...1 strike and you're out
         if(password.equals("password")) {

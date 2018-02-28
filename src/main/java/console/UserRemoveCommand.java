@@ -20,9 +20,9 @@ public class UserRemoveCommand extends Command {
     }
 
     @Override
-    public ExitCode doAction(Fridge fridge) {
+    public ExitCode doAction(String[] args, Fridge fridge) {
         
-        User u = fridge.getUser(arguments[0]);
+        User u = fridge.getUser(args[0]);
         
         if(u == null) {
             System.err.println("<Unkown user>");
