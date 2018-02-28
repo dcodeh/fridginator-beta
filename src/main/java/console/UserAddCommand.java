@@ -2,6 +2,7 @@ package console;
 
 import appl.Fridge;
 import fridginator.Constants;
+import fridginator.PasswordHelper;
 import model.User;
 
 /**
@@ -36,31 +37,17 @@ public class UserAddCommand extends Command {
         
         // rigorous validation...1 strike and you're out
         if(password.equals("password")) {
-            System.out.println("<That's the worst password you could possibly choose! Try again.>");
+            System.out.println("That's the worst password you could possibly choose! Try again.");
             return ExitCode.FAILURE;
         } else if(password.contains("1234")){
-            System.out.println("<Really? 1234!?>");
+            System.out.println("Really? 1234!?");
         }
         
-        // check username length
-        if(username.length() < Constants.MIN_USERNAME_LENGTH ||
-           username.length() > Constants.MAX_USERNAME_LENGTH) {
-            System.out.println("<Username must be between " +
-                               Constants.MIN_USERNAME_LENGTH +
-                               " and " +
-                               Constants.MAX_USERNAME_LENGTH + 
-                               " characters.>");
+        if(!PasswordHelper.validPassword(password)) {
             return ExitCode.FAILURE;
         }
         
-        // check password length
-        if(password.length() < Constants.MIN_PASSWORD_LENGTH ||
-           password.length() > Constants.MAX_PASSWORD_LENGTH) {
-            System.out.println("<Password must be between " +
-                    Constants.MIN_PASSWORD_LENGTH +
-                    " and " +
-                    Constants.MAX_PASSWORD_LENGTH + 
-                    " characters.>");
+        if(!PasswordHelper.validUsername(username)) {
             return ExitCode.FAILURE;
         }
            
