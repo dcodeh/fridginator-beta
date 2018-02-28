@@ -94,4 +94,8 @@ public class User {
         return Objects.hash(username, password);
     }
 
+    public int getNumSharedItems() {
+        return sharedItems.size();
+    }
+
 }

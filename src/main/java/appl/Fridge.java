@@ -11,6 +11,7 @@ import console.Command.ExitCode;
 import console.ExitCommand;
 import console.UserAddCommand;
 import console.UserRemoveCommand;
+import console.UserReportCommand;
 import model.Item;
 import model.User;
 
@@ -66,6 +67,10 @@ public class Fridge {
         return users.get(username);
     }
     
+    public Collection<User> getAllUsers() {
+        return users.values();
+    }
+    
     /**
      * Sees if the garbage the user entered into the console is intelligible.
      * If it is, then do the thing.
@@ -115,6 +120,7 @@ public class Fridge {
         commands.put(HelpCommand.keyword, new HelpCommand());
         commands.put(ExitCommand.keyword, new ExitCommand());
         commands.put(PasswdCommand.keyword, new PasswdCommand());
+        commands.put(UserReportCommand.keyword, new UserReportCommand());
     }
 
     public Collection<Command> getCommands() {
