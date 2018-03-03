@@ -3,7 +3,7 @@ package model;
 public class FractionalItem extends Item {
 
     public FractionalItem(String name, String unit, double expWeeklyUsage, double weeklyUsage, double desiredQty, double quantity, boolean predictable, double minQty) {
-        super(name, unit, predictable);
+        super(name, unit, predictable, false /* isWhole */);
         this.expWeeklyUsage = expWeeklyUsage;
         this.weeklyUsage = weeklyUsage;
         this.desiredQty = desiredQty;
@@ -88,6 +88,11 @@ public class FractionalItem extends Item {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public Number getUserExpUsage(User u) {
+        return usersSharing.get(u).doubleValue();
     }
 
 }

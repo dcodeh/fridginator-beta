@@ -11,7 +11,7 @@ public class Constants {
     public static final String GENERAL_USAGE_STRING = "Usage:";
     
     // what's this stupid thing called?
-    public static final String PRODUCT_NAME = "Friginator"; // mostly in case I decide to change the spelling
+    public static final String PRODUCT_NAME = "Fridginator"; // mostly in case I decide to change the spelling
     
     // Password length criteria
     public static final int MIN_PASSWORD_LENGTH = 4;

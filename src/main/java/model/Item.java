@@ -74,15 +74,21 @@ public abstract class Item {
     protected HashMap<User, Number> usersSharing;
     
     /**
+     * Whether or not the item is whole (should be set by the children
+     */
+    protected boolean isWhole;
+    
+    /**
      * Common information for all items....though this item can't be instantiated directly.
      * @param name The name of this item...best without spaces
      * @param unit The unit for this item...best as a singular label (e.g. gal, ct, etc)
      * @param predictable Whether or not this item's usage is regular every week
      */
-    public Item(String name, String unit, boolean predictable) {
+    public Item(String name, String unit, boolean predictable, boolean isWhole) {
         this.name = name;
         this.unit = unit;
         this.predictable = predictable;
+        this.isWhole = isWhole;
     }
 
     /**
@@ -126,6 +132,13 @@ public abstract class Item {
     }
     
     /**
+     * Get the amount of this item that the user expects to use
+     * @param u The user to search for
+     * @return The Number containing the user's expected usage, or NULL
+     */
+    public abstract Number getUserExpUsage(User u);
+    
+    /**
      * @param u See if this user is sharing the item
      * @return Whether or not user u is sharing it
      */
@@ -163,6 +176,13 @@ public abstract class Item {
      */
     public boolean getIsPredictable() {
         return this.predictable;
+    }
+    
+    /**
+     * @return Whether or not this item should be measured with integer quantities
+     */
+    public boolean getIsWhole() {
+        return this.isWhole;
     }
     
     /**

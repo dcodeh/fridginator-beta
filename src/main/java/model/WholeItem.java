@@ -3,7 +3,7 @@ package model;
 public class WholeItem extends Item {
     
     public WholeItem(String name, String unit, int expWeeklyUsage, int weeklyUsage, int desiredQty, int quantity, boolean predictable, int minQty) {
-        super(name, unit, predictable);
+        super(name, unit, predictable, true /* isWhole */);
         this.expWeeklyUsage = expWeeklyUsage;
         this.weeklyUsage = weeklyUsage;
         this.desiredQty = desiredQty;
@@ -88,6 +88,11 @@ public class WholeItem extends Item {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public Integer getUserExpUsage(User u) {
+        return usersSharing.get(u).intValue();
     }
 
 }
