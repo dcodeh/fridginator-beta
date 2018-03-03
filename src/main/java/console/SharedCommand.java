@@ -14,6 +14,7 @@ public class SharedCommand extends Command {
     private static final String help = "See all of the items a user is sharing, and how much of each";
     public static final String keyword = "shared";
     private static final String[] requiredArguments = {"user"};   
+    
     public SharedCommand() {
         super(help, keyword, requiredArguments);
     }

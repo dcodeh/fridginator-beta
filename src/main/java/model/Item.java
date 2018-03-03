@@ -251,4 +251,12 @@ public abstract class Item {
             return false;
         }
     }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public void setIsPredictable(boolean p) {
+        this.predictable = p;
+    }
 }

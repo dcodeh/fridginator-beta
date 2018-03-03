@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 import console.Command;
 import console.HelpCommand;
+import console.ItemCommand;
 import console.PasswdCommand;
 import console.SharedCommand;
 import console.Command.ExitCode;
@@ -123,6 +124,7 @@ public class Fridge {
         commands.put(PasswdCommand.keyword, new PasswdCommand());
         commands.put(UserReportCommand.keyword, new UserReportCommand());
         commands.put(SharedCommand.keyword, new SharedCommand());
+        commands.put(ItemCommand.keyword, new ItemCommand());
     }
 
     public Collection<Command> getCommands() {
@@ -131,6 +133,27 @@ public class Fridge {
 
     public HashSet<Item> getItems() {
         return fridge;
+    }
+    
+    /**
+     * Find an Item in the fridge by its name. Note: This method will shamelessly
+     * return null if it's not found.
+     * 
+     * @param itemName the name of the Item to search for
+     * @return The Item if found, null otherwise
+     */
+    public Item getItemByName(String itemName) {
+        // we gotta search...UGH
+
+        for(Item i : fridge) {
+            if(i.getName().equals(itemName)) {
+                // just get outta here!
+                return i;
+            }
+        }
+        
+        // welp, didn't find it
+        return null;
     }
     
 }
