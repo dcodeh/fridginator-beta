@@ -124,6 +124,22 @@ public abstract class Item {
     }
     
     /**
+     * Just grab the whole list of purchasable quantities...brute force. I like it. 
+     * @return The whole list
+     */
+    public HashSet<PurchasableQuantity> getPurchasableQuantities() {
+        return this.purchasableQuantities;
+    }
+    
+    /**
+     * Just set the whole new list by bute force...I like your style.
+     * @param newSet The new set of purchasable quantities.
+     */
+    public void setPurchasableQuantities(HashSet<PurchasableQuantity> newSet) {
+        this.purchasableQuantities = newSet;
+    }
+    
+    /**
      * See who all is partaking in this item, and their expected usage
      * @return A glorious HashMap
      */

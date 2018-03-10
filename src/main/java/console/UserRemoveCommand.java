@@ -35,6 +35,8 @@ public class UserRemoveCommand extends Command {
             }
         }
         
+        fridge.removeUser(args[0]);
+        
         System.out.println("Done.");
         return ExitCode.SUCCESS; // everything is broken!
     }

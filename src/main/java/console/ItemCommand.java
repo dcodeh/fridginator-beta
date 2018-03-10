@@ -1,9 +1,14 @@
 package console;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
 import appl.Fridge;
+import model.FractionalItem;
 import model.Item;
+import model.PurchasableQuantity;
+import model.WholeItem;
 
 /**
  * Create or modify an item in the fridge
@@ -46,13 +51,129 @@ public class ItemCommand extends Command {
             // TODO unpredictable items!
         }
         
+        HashSet<PurchasableQuantity> purchasable = getPurchasableQuantities(isNew, item, unit, isWholeItem);
+        
         // give birth to the new items down here (only if isNew)
-        
-        cleanup();
-        
+        if(isNew) {
+            Item newItem;
+            
+            if(isWholeItem) {
+                // TODO once unpredictable items can be created, update the minQty Parameter
+                newItem = new WholeItem(itemName, unit, 0, 0, (int) desiredAmount, 0, isPredictable, 0);
+                newItem.setPurchasableQuantities(purchasable);
+            } else {
+                // TODO update the minQty parameter once I can handle entering unpredictable items
+                newItem = new FractionalItem(itemName, unit, 0.0, 0.0, desiredAmount, 0.0, isPredictable, 0.0);
+                newItem.setPurchasableQuantities(purchasable);
+            }
+            
+            fridge.addItem(newItem);
+        } else {
+            // TODO handle updating items (may be easiest if done in input methods
+        }
+                
         return ExitCode.SUCCESS; // everything is working!
     }
     
+    /**
+     * Prompts user for the quantities that can be bought in a store. 
+     * @param isNew Whether this is an item insertion or update
+     * @param item The Item that is being updated (or null if not applicable)
+     * @param unit The unit string for this item
+     * @param isWhole Whether or not to truncate input values
+     * @return The set of purchasable quantities
+     */
+    private HashSet<PurchasableQuantity> getPurchasableQuantities(boolean isNew, Item item, String unit, boolean isWhole) {
+        HashSet<PurchasableQuantity> purchasable = new HashSet<PurchasableQuantity>();
+                
+        String entry;
+        boolean validInput = false;
+        ArrayList<Double> quantities = null;
+        
+        while(!validInput) {
+            System.out.print("Purchasable Quantities (comma separated): ");
+            entry = stdin.nextLine();
+            
+            if(entry.isEmpty()) {
+                if(isNew) {
+                    System.out.println("You must enter at least 1 purchasable quantity!");
+                    // fail immediately
+                } else {
+                    // accepting previously entered purchasable quantities, nothing else is needed
+                    return item.getPurchasableQuantities();
+                }
+            } else {
+                // send off to validation
+                quantities = processQuantityInput(entry);
+                
+                if(quantities != null) {
+                    validInput = true;
+                }
+            }
+        }
+        
+        // enter the prices
+        for(Double d : quantities) {
+            // get a price for each quantity
+            boolean validPrice = false;
+            double price = 0.0;
+            while(!validPrice) {
+                System.out.printf("Exp. Price <%.2f %s>: $", d, unit);
+                
+                String input = stdin.nextLine();
+                
+                if(!input.isEmpty()) {
+                    try {
+                        price = Double.valueOf(input);
+                        validPrice = true;
+                    } catch(NumberFormatException nfe) {
+                        System.out.println("Good try, but " + input + " is not a number.");
+                    }
+                }
+                
+            }
+            
+            // we have all of the pieces to build a quantity now.
+            PurchasableQuantity pq;
+            if(isWhole) {
+                pq = new PurchasableQuantity(unit, d.intValue(), price);
+            } else {
+                pq = new PurchasableQuantity(unit, d, price);
+            }
+            
+            purchasable.add(pq);
+            
+        }
+        
+        return purchasable;
+    }
+    
+    /**
+     * Translates the garble the user enters into a nice ArrayList of doubles, if possible.
+     * 
+     * Note: Will return null if it gets unhappy, so watch yourself.
+     *  
+     * @param line The line the user entered, of comma separated purchasable quantities.
+     * @return An ArrayList of the quantities the user entered. Using doubles for everything because we
+     * can truncate them later if necessary.
+     */
+    private ArrayList<Double> processQuantityInput(String line) {
+        ArrayList<Double> quantities = new ArrayList<Double>();
+        
+        String[] pieces = line.split(",");
+        
+        for(int i = 0; i < pieces.length; ++i) {
+            try {
+                quantities.add(Double.valueOf(pieces[i].trim()));
+            } catch(NumberFormatException nfe) {
+                System.out.println("Good try, but " + pieces[i] + " is not a number.");
+                return null;
+            }
+        }
+        
+        return quantities;
+    }
+
     /**
      * Get the desired amount to have in the fridge for this PREDICTABLE item
      * @param isNew Whether or not we're creating a new item
@@ -111,7 +232,7 @@ public class ItemCommand extends Command {
                 // if we get past here we're good
             } catch(NumberFormatException nfe) {
                 // gotcha! you didn't type a good number...try again
-                System.out.println("Invalid double value!");
+                System.out.println("Good try, but that's not a number");
                 valid = false;
             }
         }
@@ -128,7 +249,7 @@ public class ItemCommand extends Command {
     private boolean getIsPredictableYN(boolean isNew, Item item) {
         
         if(isNew) {
-            switch(getYNResponse("Predictable Usage? (y/n)", false /* allowEmpty */)) {
+            switch(getYNResponse("Predictable Usage? (y/n): ", false /* allowEmpty */)) {
                 case 1:
                     return true;
                 default:
@@ -152,6 +273,7 @@ public class ItemCommand extends Command {
         if(isNew) {
             System.out.print("Unit: ");
             unit = stdin.nextLine();
+            // TODO disallow empty unit??
         } else {
             System.out.printf("Unit [%s]: ", item.getUnit());
             unit = stdin.nextLine();
