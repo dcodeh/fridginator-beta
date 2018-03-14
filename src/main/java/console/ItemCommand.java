@@ -44,11 +44,12 @@ public class ItemCommand extends Command {
         boolean isPredictable = getIsPredictableYN(isNew, item); // ask the user if the item is predictable
         
         double desiredAmount = 0.0;
+        double minAmount = 0.0;
         
-        if(isPredictable) {
-            desiredAmount = getDesiredAmount(isNew, unit, item);
-        } else {
-            // TODO unpredictable items!
+        desiredAmount = getDesiredAmount(isNew, unit, item);
+        
+        if(!isPredictable) {
+            minAmount = getMinimumAmount(isNew, unit, item);
         }
         
         HashSet<PurchasableQuantity> purchasable = getPurchasableQuantities(isNew, item, unit, isWholeItem);
@@ -58,12 +59,10 @@ public class ItemCommand extends Command {
             Item newItem;
             
             if(isWholeItem) {
-                // TODO once unpredictable items can be created, update the minQty Parameter
-                newItem = new WholeItem(itemName, unit, 0, 0, (int) desiredAmount, 0, isPredictable, 0);
+                newItem = new WholeItem(itemName, unit, 0, 0, (int) desiredAmount, 0, isPredictable, (int) minAmount);
                 newItem.setPurchasableQuantities(purchasable);
             } else {
-                // TODO update the minQty parameter once I can handle entering unpredictable items
-                newItem = new FractionalItem(itemName, unit, 0.0, 0.0, desiredAmount, 0.0, isPredictable, 0.0);
+                newItem = new FractionalItem(itemName, unit, 0.0, 0.0, desiredAmount, 0.0, isPredictable, minAmount);
                 newItem.setPurchasableQuantities(purchasable);
             }
             
@@ -75,6 +74,38 @@ public class ItemCommand extends Command {
         return ExitCode.SUCCESS; // everything is working!
     }
     
+    /**
+     * Get the user's minimum desired amount for this item...Remember, this is the amount that triggers 
+     * Fridginator to restock this item.
+     * @param isNew Whether this is an insert or an update
+     * @param unit The unit for this item
+     * @param item The item to update (could be null if new)
+     * @return The minimum amount that the user is comfortable with having
+     */
+    private double getMinimumAmount(boolean isNew, String unit, Item item) {
+        double amount = 0.0;
+        
+        if(isNew) {
+            String prompt = "Minimum Amount (" + unit + "): ";
+            return getEnteredDouble(prompt, false /* allowEmpty */);
+        } else {
+            String prompt = "Minimum Amount (" + unit + ") [" + item.getMinQuantity() + "]: ";
+            double response = getEnteredDouble(prompt, true /* allowEmpty */);
+            
+            if(response < 0) {
+                // user accepted empty value
+                amount = item.getMinQuantity().doubleValue();
+            } else {
+                amount = response;
+                
+                // update the item
+                item.setMinQuantity(item.getIsWhole() ? (int) amount : amount); 
+            }
+        }
+        
+        return amount;
+    }
+
     /**
      * Prompts user for the quantities that can be bought in a store. 
      * @param isNew Whether this is an item insertion or update
@@ -90,8 +121,22 @@ public class ItemCommand extends Command {
         boolean validInput = false;
         ArrayList<Double> quantities = null;
         
+        if(!isNew) {
+            // display all of the old purchasable quantities
+            System.out.println("\nCurrent stored quantities:");
+            System.out.println("Quantity (" + item.getUnit() + ")\tPrice\t\tUnit Price");
+            for(PurchasableQuantity pq : item.getPurchasableQuantities()) {
+                
+                if(item.getIsWhole()) {
+                    System.out.printf("%d \t\t$%.2f \t\t$%.2f/%s\n", pq.getAmount().intValue(), pq.getPrice(), pq.getUnitPrice(), pq.getUnit());
+                } else {
+                    System.out.printf("%.2f \t\t$%.2f \t\t$%.2f/%s\n", pq.getAmount().doubleValue(), pq.getPrice(), pq.getUnitPrice(), pq.getUnit());
+                }
+            }
+        }
+        
         while(!validInput) {
-            System.out.print("Purchasable Quantities (comma separated): ");
+            System.out.print("\nPurchasable Quantities (comma separated): ");
             entry = stdin.nextLine();
             
             if(entry.isEmpty()) {
@@ -197,7 +242,10 @@ public class ItemCommand extends Command {
                 // user accepted empty value
                 amount = item.getDesiredQty().doubleValue();
             } else {
-                return response;
+                amount = response;
+                
+                // update the item
+                item.setDesiredQty(item.getIsWhole() ? (int) amount : amount); 
             }
         }
         
