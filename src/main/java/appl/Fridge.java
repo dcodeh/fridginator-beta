@@ -7,6 +7,7 @@ import java.util.HashSet;
 import console.Command;
 import console.HelpCommand;
 import console.ItemCommand;
+import console.ItemDeleteCommand;
 import console.PasswdCommand;
 import console.SharedCommand;
 import console.Command.ExitCode;
@@ -125,6 +126,7 @@ public class Fridge {
         commands.put(UserReportCommand.keyword, new UserReportCommand());
         commands.put(SharedCommand.keyword, new SharedCommand());
         commands.put(ItemCommand.keyword, new ItemCommand());
+        commands.put(ItemDeleteCommand.keyword, new ItemDeleteCommand());
     }
 
     public Collection<Command> getCommands() {
