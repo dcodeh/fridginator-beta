@@ -10,6 +10,7 @@ import console.HelpCommand;
 import console.ItemCommand;
 import console.ItemDeleteCommand;
 import console.PasswdCommand;
+import console.ShareItemCommand;
 import console.SharedCommand;
 import console.SharingCommand;
 import console.Command.ExitCode;
@@ -131,6 +132,7 @@ public class Fridge {
         commands.put(ItemDeleteCommand.keyword, new ItemDeleteCommand());
         commands.put(BlankCommand.keyword, new BlankCommand());
         commands.put(SharingCommand.keyword, new SharingCommand());
+        commands.put(ShareItemCommand.keyword, new ShareItemCommand());
     }
 
     public Collection<Command> getCommands() {
@@ -144,6 +146,9 @@ public class Fridge {
     /**
      * Find an Item in the fridge by its name. Note: This method will shamelessly
      * return null if it's not found.
+     * 
+     * TODO dcodeh consider adding another hashmap for itemname to item for faster
+     * lookup...although RAM may not be plentiful
      * 
      * @param itemName the name of the Item to search for
      * @return The Item if found, null otherwise

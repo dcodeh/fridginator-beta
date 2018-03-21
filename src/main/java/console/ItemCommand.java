@@ -49,6 +49,7 @@ public class ItemCommand extends Command {
         desiredAmount = getDesiredAmount(isNew, unit, item);
         
         if(!isPredictable) {
+            // TODO dcodeh make sure the user can't be stupid and make the min amount larger than the max amount!
             minAmount = getMinimumAmount(isNew, unit, item);
         }
         
