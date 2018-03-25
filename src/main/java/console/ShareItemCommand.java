@@ -1,5 +1,7 @@
 package console;
 
+import java.util.Scanner;
+
 import appl.Fridge;
 import model.Item;
 import model.User;
@@ -22,6 +24,8 @@ public class ShareItemCommand extends Command {
     @Override
     public ExitCode doAction(String[] args, Fridge fridge) {
         
+        Scanner stdin = new Scanner(System.in);
+        
         String itemName = args[0];
         String username = args[1];
         
@@ -38,6 +42,54 @@ public class ShareItemCommand extends Command {
             System.out.println("Who dat? (unkown user)");
             return ExitCode.FAILURE;
         }
+        
+        // see if the user already shares this item
+        boolean alreadyShared = item.isUserSharingItem(user);
+        
+        boolean valid = false;
+        double expUsage = 0.0;
+        while(!valid) {
+            
+            if(alreadyShared) {
+                expUsage = item.getUserExpUsage(user).doubleValue();
+                System.out.println(user.getUsername() + " already shares " + item.getName() + "...leave empty for no change.");
+                System.out.print("Expected Usager per week (" + item.getUnit() + ") [" + expUsage + "]: ");
+            } else {
+                System.out.print("Expected Usage per week (" + item.getUnit() + "): ");
+            }
+            
+            String entered  = stdin.nextLine();
+
+            if(entered.isEmpty()) {
+                if(alreadyShared) {
+                    valid = true;
+                    break;
+                } else {
+                    System.out.println("You must enter a value.");
+                }
+            } else {
+                try {
+                    expUsage = Double.valueOf(entered);
+                } catch (NumberFormatException nfe) {
+                    System.out.println("Good try, but that's not a number...");
+                }
+                
+                if(expUsage > 0.0) {
+                    valid = true;
+                }
+            }
+            
+        }
+        
+        if(item.getIsWhole()) {
+            item.setUserExpUsage(user, (int) expUsage);
+        } else {
+            item.setUserExpUsage(user, expUsage);
+        }
+        
+        user.shareItem(item);
+        
+        System.out.println("Done.");
         
         return ExitCode.SUCCESS;
     }

@@ -55,6 +55,10 @@ public class User {
         this.sharedItems.remove(i);
     }
     
+    public void shareItem(Item i) {
+        this.sharedItems.add(i);
+    }
+    
     public double getMoneySaved() {
         return this.moneySaved;
     }

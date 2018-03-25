@@ -162,6 +162,12 @@ public abstract class Item {
         return this.usersSharing.containsKey(u);
     }
     
+    public void setUserExpUsage(User u, Number n) {
+        if(this.usersSharing.containsKey(u)) {
+            this.usersSharing.put(u, n);
+        }
+    }
+    
     /**
      * @return The total expected weekly usage of this item (for all users) 
      */
