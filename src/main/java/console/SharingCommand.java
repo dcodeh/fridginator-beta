@@ -39,7 +39,7 @@ public class SharingCommand extends Command {
             System.out.println("Users sharing " + item.getName() + ":");
             System.out.println("Username\t\tAmount (" + item.getUnit() + ")");
             for(User u : usersSharing.keySet()) {
-                System.out.println(u.getUsername() + "\t\t" + usersSharing.get(u));
+                System.out.println(u.getUsername() + "\t\t\t" + usersSharing.get(u));
             }
             System.out.println("------------- \n" + 
                     "End of Report");

@@ -24,6 +24,7 @@ public class ShareItemCommand extends Command {
     @Override
     public ExitCode doAction(String[] args, Fridge fridge) {
         
+        @SuppressWarnings("resource") // this will be closed when the program exits
         Scanner stdin = new Scanner(System.in);
         
         String itemName = args[0];
@@ -48,37 +49,40 @@ public class ShareItemCommand extends Command {
         
         boolean valid = false;
         double expUsage = 0.0;
-        while(!valid) {
-            
-            if(alreadyShared) {
-                expUsage = item.getUserExpUsage(user).doubleValue();
-                System.out.println(user.getUsername() + " already shares " + item.getName() + "...leave empty for no change.");
-                System.out.print("Expected Usager per week (" + item.getUnit() + ") [" + expUsage + "]: ");
-            } else {
-                System.out.print("Expected Usage per week (" + item.getUnit() + "): ");
-            }
-            
-            String entered  = stdin.nextLine();
-
-            if(entered.isEmpty()) {
+        
+        if(item.getIsPredictable()) {
+            while(!valid) {
+                
                 if(alreadyShared) {
-                    valid = true;
-                    break;
+                    expUsage = item.getUserExpUsage(user).doubleValue();
+                    System.out.println(user.getUsername() + " already shares " + item.getName() + "...leave empty for no change.");
+                    System.out.print("Expected Usager per week (" + item.getUnit() + ") [" + expUsage + "]: ");
                 } else {
-                    System.out.println("You must enter a value.");
-                }
-            } else {
-                try {
-                    expUsage = Double.valueOf(entered);
-                } catch (NumberFormatException nfe) {
-                    System.out.println("Good try, but that's not a number...");
+                    System.out.print("Expected Usage per week (" + item.getUnit() + "): ");
                 }
                 
-                if(expUsage > 0.0) {
-                    valid = true;
+                String entered  = stdin.nextLine();
+    
+                if(entered.isEmpty()) {
+                    if(alreadyShared) {
+                        valid = true;
+                        break;
+                    } else {
+                        System.out.println("You must enter a value.");
+                    }
+                } else {
+                    try {
+                        expUsage = Double.valueOf(entered);
+                    } catch (NumberFormatException nfe) {
+                        System.out.println("Good try, but that's not a number...");
+                    }
+                    
+                    if(expUsage > 0.0) {
+                        valid = true;
+                    }
                 }
+                
             }
-            
         }
         
         if(item.getIsWhole()) {

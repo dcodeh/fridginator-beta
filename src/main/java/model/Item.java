@@ -89,6 +89,7 @@ public abstract class Item {
         this.unit = unit;
         this.predictable = predictable;
         this.isWhole = isWhole;
+        this.usersSharing = new HashMap<User, Number>();
     }
 
     /**
@@ -163,9 +164,7 @@ public abstract class Item {
     }
     
     public void setUserExpUsage(User u, Number n) {
-        if(this.usersSharing.containsKey(u)) {
-            this.usersSharing.put(u, n);
-        }
+        this.usersSharing.put(u, n);
     }
     
     /**
