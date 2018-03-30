@@ -38,7 +38,7 @@ public class SharedCommand extends Command {
             
             if(i.getIsWhole()) {
                 // use integer format
-                System.out.printf("%s: \t\t%d %s", i.getName(), i.getUserExpUsage(user), i.getUnit());
+                System.out.printf("%s: \t\t\t%d %s", i.getName(), i.getUserExpUsage(user), i.getUnit());
             } else {
                 // use float format with 2 decimals
                 System.out.printf("%s: \t\t%.2f %s", i.getName(), i.getUserExpUsage(user), i.getUnit());
