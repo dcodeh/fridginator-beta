@@ -7,6 +7,7 @@ import java.util.HashSet;
 import console.BlankCommand;
 import console.Command;
 import console.HelpCommand;
+import console.InventoryCommand;
 import console.ItemCommand;
 import console.ItemDeleteCommand;
 import console.ItemsCommand;
@@ -137,6 +138,7 @@ public class Fridge {
         commands.put(ShareItemCommand.keyword, new ShareItemCommand());
         commands.put(UnshareItemCommand.keyword, new UnshareItemCommand());
         commands.put(ItemsCommand.keyword, new ItemsCommand());
+        commands.put(InventoryCommand.keyword, new InventoryCommand());
     }
 
     public Collection<Command> getCommands() {
