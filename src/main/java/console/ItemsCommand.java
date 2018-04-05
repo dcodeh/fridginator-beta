@@ -1,6 +1,8 @@
 package console;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 
 import appl.Fridge;
 import model.Item;
@@ -24,20 +26,31 @@ public class ItemsCommand extends Command {
     @Override
     public ExitCode doAction(String[] args, Fridge fridge) {
         
-        // TODO dcodeh finish this
+        HashSet<Item> itemsInFridge = fridge.getItems();
         
-        Item item = null; // this is def wrong, but it makes the errors go away.
-        // TODO dcodeh add this to initCommands()
+        if(itemsInFridge == null) {
+            System.out.println("No Items to report.");
+            return ExitCode.SUCCESS;
+        }
         
-        HashMap<User, Number> usersSharingItem = item.getUsersSharingItem();
+        Iterator<Item> itemsIterator = itemsInFridge.iterator();
         
-        if(usersSharingItem != null) {
-            for(User u : usersSharingItem.keySet()) {
-                System.out.println(u.getUsername() + " unshared " + item.getName());
-                u.unshareItem(item);
+        while(itemsIterator.hasNext()) {
+            Item item = itemsIterator.next();
+            
+            System.out.println(item.getName() + " shared by:");
+            HashMap<User, Number> usersSharingItem = item.getUsersSharingItem();
+            
+            if(usersSharingItem != null) {
+                for(User u : usersSharingItem.keySet()) {
+                    System.out.println("\t" + u.getUsername() + "\t" + usersSharingItem.get(u) + " " + item.getUnit());
+                }
+            } else {
+                System.out.println("(nobody)");
             }
-        } else {
-            System.out.println("No users to unshare item.");
+            
+            // newline because yeah
+            System.out.println();
         }
         
         return ExitCode.SUCCESS;
