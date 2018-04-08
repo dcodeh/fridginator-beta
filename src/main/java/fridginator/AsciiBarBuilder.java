@@ -32,9 +32,13 @@ public class AsciiBarBuilder {
         String bar = "";
         
         // validate the arguments first
-        if((barLength > 0) && (min < max) && (min <= value) && (value <= max)) {
+        if((barLength > 0) && (min < max) ) {
             // add an opening bracket
-            bar += "[";
+            if(value < min) {
+                bar += "<";
+            } else {
+                bar += "[";
+            }
             
             double range = max - min; // guaranteed positive
             double charWorth = range / (double) barLength;
@@ -62,7 +66,11 @@ public class AsciiBarBuilder {
             }
             
             // closing bracket
-            bar += "]"; 
+            if(value > max) {
+                bar += ">";
+            } else {
+                bar += "[";
+            }
         } else {
             bar =  "[    :(     ]";
         }
