@@ -172,6 +172,13 @@ public abstract class Item {
     
     public void setUserExpUsage(User u, Number n) {
         this.usersSharing.put(u, n);
+        
+        double totalUsage = 0.0;
+        for(Number usage : this.usersSharing.values()) {
+            totalUsage += usage.doubleValue();
+        }
+        
+        this.expWeeklyUsage = totalUsage;
     }
     
     /**
