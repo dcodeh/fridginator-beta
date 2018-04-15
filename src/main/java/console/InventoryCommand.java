@@ -56,7 +56,7 @@ public class InventoryCommand extends Command {
         // print them all nice and pretty-like
         // predictable items
         System.out.println("Predictable Items:");
-        System.out.println("\tName\t\tQty\t\tBar\t\t\t\tDesired Qty");
+        System.out.println("\tName\t\tQty\t\tBar\t\t\t\t Desired Qty");
         for(Item i : predictableItems) {
             System.out.print("\t");
             System.out.print(i.getName());
@@ -74,7 +74,7 @@ public class InventoryCommand extends Command {
         System.out.println();
         
         System.out.println("Other Items:");
-        System.out.println("\tName\t\tQty\t\tBar\t\t\t\tDesired Qty");
+        System.out.println("\tName\t\tQty\t\tBar\t\t\t\t Desired Qty");
         for(Item i : otherItems) {
             System.out.print("\t");
             System.out.print(i.getName());

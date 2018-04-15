@@ -69,7 +69,7 @@ public class AsciiBarBuilder {
             if(value > max) {
                 bar += ">";
             } else {
-                bar += "[";
+                bar += "]";
             }
         } else {
             bar =  "[    :(     ]";
