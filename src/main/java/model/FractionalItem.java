@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Date;
+
 public class FractionalItem extends Item {
 
     public FractionalItem(String name, String unit, double expWeeklyUsage, double weeklyUsage, double desiredQty, double quantity, boolean predictable, double minQty) {
@@ -48,7 +50,21 @@ public class FractionalItem extends Item {
 
     @Override
     public void setQuantity(Number qty) {
-        this.quantity = qty.doubleValue();
+        Date now = new Date();
+        
+        if(lastUpdatedDate != null) {
+            double oldQuantity = this.getQuantity();
+            double diff = qty.doubleValue() - oldQuantity;
+            long diffTimeMS = now.getTime() - lastUpdatedDate.getTime();
+            double diffTimeWeeks = diffTimeMS * 0.000000001653439; // a magic number from ddg
+            
+            setWeeklyUsage(diff / diffTimeWeeks);
+            
+            this.quantity = qty.doubleValue();
+        } else {
+            lastUpdatedDate = now;
+            this.quantity = qty.doubleValue();
+        }
     }
 
     @Override

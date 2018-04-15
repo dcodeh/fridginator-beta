@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Date;
+
 public class WholeItem extends Item {
     
     public WholeItem(String name, String unit, int expWeeklyUsage, int weeklyUsage, int desiredQty, int quantity, boolean predictable, int minQty) {
@@ -48,7 +50,21 @@ public class WholeItem extends Item {
 
     @Override
     public void setQuantity(Number qty) {
-        this.quantity = qty.intValue();
+        Date now = new Date();
+        
+        if(lastUpdatedDate != null) {
+            double oldQuantity = this.getQuantity();
+            double diff = qty.intValue() - oldQuantity;
+            long diffTimeMS = now.getTime() - lastUpdatedDate.getTime();
+            double diffTimeWeeks = diffTimeMS * 0.000000001653439; // a magic number from ddg
+            
+            setWeeklyUsage(diff / diffTimeWeeks);
+            
+            this.quantity = qty.intValue();
+        } else {
+            lastUpdatedDate = now;
+            this.quantity = qty.intValue();
+        }
     }
 
     @Override

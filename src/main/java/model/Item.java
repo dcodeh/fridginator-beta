@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
@@ -36,9 +37,15 @@ public abstract class Item {
     protected Number expWeeklyUsage;
     
     /**
+     * Used to calculate weeklyUsage
+     * Just for one week this time.
+     */
+    protected Date lastUpdatedDate;
+    
+    /**
      * The actual amount that gets used per week (for all users).
      * 
-     * This should be determined by history.
+     * This should be determined by history. (See above)
      */
     protected Number weeklyUsage;
     
