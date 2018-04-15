@@ -12,6 +12,7 @@ import console.ItemCommand;
 import console.ItemDeleteCommand;
 import console.ItemsCommand;
 import console.PasswdCommand;
+import console.QtyCommand;
 import console.ShareItemCommand;
 import console.SharedCommand;
 import console.SharingCommand;
@@ -139,6 +140,7 @@ public class Fridge {
         commands.put(UnshareItemCommand.keyword, new UnshareItemCommand());
         commands.put(ItemsCommand.keyword, new ItemsCommand());
         commands.put(InventoryCommand.keyword, new InventoryCommand());
+        commands.put(QtyCommand.keyword, new QtyCommand());
     }
 
     public Collection<Command> getCommands() {

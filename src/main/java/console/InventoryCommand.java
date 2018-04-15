@@ -73,7 +73,6 @@ public class InventoryCommand extends Command {
         
         System.out.println();
         
-     // predictable items
         System.out.println("Other Items:");
         System.out.println("\tName\t\tQty\t\tBar\t\t\t\tDesired Qty");
         for(Item i : otherItems) {
