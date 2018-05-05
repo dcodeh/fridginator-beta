@@ -7,7 +7,17 @@ import java.util.Objects;
  * Represents all of the information needed for a user.
  * @author dcodeh
  */
-public class User {
+public class User implements java.io.Serializable {
+    
+    /*
+     * Used to determine if the serialized objects are compatible at deserialization time.
+     * This should be changed any time serialized fields are changed!
+     * 
+     * History:
+     * Version  Value       Notes
+     * 0.1      1L          Initial version
+     */
+    private static final long serialVersionUID = 1L;
     
     private String username;
     private String password;

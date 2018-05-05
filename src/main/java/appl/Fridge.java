@@ -30,9 +30,19 @@ import model.User;
  * Stores and tracks all of the shared and unshared items.
  * @author dcodeh
  */
-public class Fridge {
+public class Fridge implements java.io.Serializable {
 
     // huh it's empty
+    
+    /*
+     * Used to determine if the serialized objects are compatible at deserialization time.
+     * This should be changed any time serialized fields are changed!
+     * 
+     * History:
+     * Version  Value       Notes
+     * 0.1      1L          Initial version
+     */
+    private static final long serialVersionUID = 1L;
     
     /**
      * Holds all of the items shared between users 
@@ -48,8 +58,9 @@ public class Fridge {
      * Holds all of the acceptable console commands, for easy extensibility
      * :w
      * dang it eclipse!
+     * This should not be stored when the fridge gets serialized
      */
-    private HashMap<String, Command> commands;
+    private transient HashMap<String, Command> commands;
 
     public Fridge() {
         fridge = new HashSet<Item>();
