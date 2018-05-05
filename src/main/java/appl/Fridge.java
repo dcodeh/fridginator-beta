@@ -1,5 +1,7 @@
 package appl;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -43,6 +45,19 @@ public class Fridge implements java.io.Serializable {
      * 0.1      1L          Initial version
      */
     private static final long serialVersionUID = 1L;
+    
+    private void readObject(ObjectInputStream in) {
+        try {
+            in.defaultReadObject();
+        } catch (ClassNotFoundException e) {
+            System.out.println("This stream tastes like garbage...couldnt find a class");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("The filesystem is bullying me");
+            e.printStackTrace();
+        }
+        initCommands();
+    }
     
     /**
      * Holds all of the items shared between users 
