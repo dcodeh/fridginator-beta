@@ -1,5 +1,6 @@
 package console;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -37,12 +38,20 @@ public class ItemDeleteCommand extends Command {
         fridge.removeItem(item);
         
         HashMap<User, Number> usersSharingItem = item.getUsersSharingItem();
+        ArrayList<User> usersToRemoveFromItem = new ArrayList<User>();
         
         if(usersSharingItem != null) {
             for(User u : usersSharingItem.keySet()) {
                 System.out.println(u.getUsername() + " unshared " + item.getName());
                 u.unshareItem(item);
+                usersToRemoveFromItem.add(u);
             }
+            
+            // remove users from the item separately to avoid concurrent modification of usersSharingItem
+            for(User u : usersToRemoveFromItem) {
+                item.unshareItemWithUser(u);
+            }
+            
         } else {
             System.out.println("No users to unshare item.");
         }
