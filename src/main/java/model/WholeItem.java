@@ -49,7 +49,7 @@ public class WholeItem extends Item {
     }
 
     @Override
-    public void setQuantity(Number qty) {
+    public void setQuantity(Number qty) {        
         Date now = new Date();
         
         if(lastUpdatedDate != null) {
@@ -58,7 +58,11 @@ public class WholeItem extends Item {
             long diffTimeMS = now.getTime() - lastUpdatedDate.getTime();
             double diffTimeWeeks = diffTimeMS * 0.000000001653439; // a magic number from ddg
             
-            setWeeklyUsage(diff / diffTimeWeeks);
+            // if we're replenishing the item, track the date, but not the change in stock
+            if(qty.doubleValue() <= oldQuantity) {
+                // using the item, track the usage
+                setWeeklyUsage(diff / diffTimeWeeks);
+            }
             
             this.quantity = qty.intValue();
         } else {
