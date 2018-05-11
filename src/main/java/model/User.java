@@ -25,6 +25,7 @@ public class User implements java.io.Serializable {
     private double moneySaved;
     private double moneySpent;
     private ShoppingList list;
+    private boolean isSignedIn;
     
     public User(String username, String password) {
         this.username = username;
@@ -35,6 +36,7 @@ public class User implements java.io.Serializable {
         moneySpent = 0.0;
         
         list = new ShoppingList();
+        isSignedIn = false;
     }
     
     public String getUsername() {
@@ -91,6 +93,14 @@ public class User implements java.io.Serializable {
     
     public void resetMoneySaved() {
         this.moneySaved = 0.0;
+    }
+    
+    public boolean getIsSignedIn() {
+        return isSignedIn;
+    }
+    
+    public void setIsSignedIn(boolean isSignedIn) {
+        this.isSignedIn = isSignedIn;
     }
     
     @Override
