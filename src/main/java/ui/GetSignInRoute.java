@@ -21,7 +21,7 @@ public class GetSignInRoute implements Route {
     public static final String VERSION_ATTR = "version";
     public static final String VIEW_NAME = "signIn.ftl"; 
     
-    private static final String TITLE = "Sign in to Fridginator";
+    private static final String TITLE = "Sign In";
     private static final String VERSION = "Version 0.1";
     
     private final TemplateEngine templateEngine;
@@ -47,7 +47,9 @@ public class GetSignInRoute implements Route {
         
         if(session.attribute(WebServer.SESSION_USER) != null) {
             // this person has already signed in, and has an active session
-            response.redirect(WebServer.LIST_URL);
+            // TODO redirect to list
+            //response.redirect(WebServer.LIST_URL);
+            System.out.println("Whooosh...go to the list page");
             return null; // shhhhh, compiler!
         } else {
             // render the login form

@@ -8,7 +8,8 @@
     
     <body>
         <div class="page">
-            <h1>Fridginator</h1>            
+            <h1>Fridginator</h1>
+            <p>${version}</p>
         </div>
     </body>
 
