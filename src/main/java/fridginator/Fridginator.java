@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import appl.Fridge;
 import console.Command.ExitCode;
 
-public class Fridginator {
+public final class Fridginator {
+    public final static Logger log = Logger.getLogger(Fridginator.class.getName());
 	
     // entry point for fridinator
 	public static void main(String[] args) {
@@ -28,28 +30,26 @@ public class Fridginator {
 	        f = (Fridge) objIn.readObject();
 	        
 	    } catch (ClassNotFoundException cnfe) {
-	        System.out.println("What is this garbage stream you're feeding me!?");
-	        System.out.println("Starting fresh");
-	        System.out.println("If you see Cody, tell him");
-	        cnfe.printStackTrace();
+	        log.warning("What is this garbage stream you gave me!?");
+	        log.config("Starting a fresh fridge");
+	        log.warning("If you see Cody, tell him " + cnfe.getMessage());
 	        f = new Fridge();
 	    } catch (IOException ioe) {
-	        System.out.println("Could not load the state of the last fridge!");
-	        System.out.println("Starting fresh");
-	        System.out.println("If you see Cody, tell him");
-	        ioe.printStackTrace();
+	        log.warning("Couldn't load the state of the fridge in /opt/fridginator/frdge.ser!");
+	        log.config("Starting a fresh fridge");
+	        log.warning("If you see Cody, tell him" + ioe.getMessage());
 	        f = new Fridge();
 	    } finally {
 	        try {
 	            fileIn.close();
 	        } catch (Exception e) {
-	            System.out.println("fileIn wasn't open");
+	            log.finest("tried closing a resource that was null. The situation is under control");
 	        }
 	        
 	        try {
 	            objIn.close();
 	        } catch (Exception e) {
-	            System.out.println("objIn wasn't open");
+	            log.finest("tried closing a resource that was null. No need to panic");
 	        }
 	    }	    
 	    
@@ -74,19 +74,19 @@ public class Fridginator {
 	        objOut.writeObject(f);
 	        
 	    } catch (IOException ioe) {
-	        System.out.println("Could not serialize the fridge!");
-	        ioe.printStackTrace();
+	        log.warning("Couldn't save the state of the fridge!");
+	        log.warning("If you see Cody, tell him " + ioe.getMessage());
 	    } finally {
 	        try { 
                 objOut.close(); 
 	        } catch (Exception e) {
-	            System.out.println("objOut wasn't open");
+	            log.finest("tried closing a resource that was null. Nothing to see here.");
 	        }
 	        
 	        try {
 	            fileOut.close();
 	        } catch (Exception e) {
-	            System.out.println("fileOut wasn't open");
+	            log.finest("tried closing a resource that was null. Nothing exciting here, move on with your day");
 	        }
             
 	    }
