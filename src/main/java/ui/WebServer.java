@@ -26,7 +26,6 @@ public class WebServer {
     
     // GET URL Patterns
     public static final String HOME_URL = "/";
-    public static final String SIGNIN_URL = "signIn";
     public static final String LIST_URL = "/list";
     public static final String EDIT_LIST_URL = "/editList";
     
@@ -56,8 +55,7 @@ public class WebServer {
         port(4567);
 
         // jetty will start automatically as soon as routes are configured
-//        get(HOME_URL, new GetHomeRoute(gameCenter, templateEngine));
-        get(SIGNIN_URL, new GetSignInRoute(templateEngine));
+        get(HOME_URL, new GetSignInRoute(templateEngine));
         log.config("WebServer initialization complete");
     }
     
