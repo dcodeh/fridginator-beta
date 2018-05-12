@@ -13,12 +13,10 @@ import appl.Fridge;
 import console.Command.ExitCode;
 import spark.TemplateEngine;
 import spark.template.freemarker.FreeMarkerEngine;
+import ui.WebServer;
 
 public final class Fridginator {
     public final static Logger log = Logger.getLogger(Fridginator.class.getName());
-    
-    // for rendering Views
-    final TemplateEngine templateEngine = new FreeMarkerEngine();
 	
     // entry point for fridinator
 	public static void main(String[] args) {
@@ -59,6 +57,12 @@ public final class Fridginator {
 	        }
 	    }	    
 	    
+	    // do all the fancy web initialization stuffs here
+	    final TemplateEngine templateEngine = new FreeMarkerEngine();
+	    final WebServer webServer = new WebServer(f, templateEngine);
+	    final Fridginator fridginator = new Fridginator(webServer);
+	    fridginator.start();
+	    
 		System.out.println("Enter commands:");
 		
 		Scanner stdin = new Scanner(System.in);
@@ -98,6 +102,24 @@ public final class Fridginator {
 	    }
 		
 		stdin.close();
+	}
+	
+	// attribute of this class
+	private final WebServer webServer;
+	
+	/**
+	 * Seems gross, but this is how the WebServer gets started.
+	 * @param webServer The WebServer object to use as a, well, WebServer
+	 */
+	private Fridginator(final WebServer webServer) {
+	    this.webServer = webServer;
+	}
+	
+	/**
+	 * Spins up the web server
+	 */
+	private void start() {
+	    webServer.initialize();
 	}
 	
 }
