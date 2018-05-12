@@ -18,7 +18,26 @@ public class WebServer {
     public static final String LIST_URL = "/list";
     public static final String EDIT_LIST_URL = "/editList";
     
-    // TODO eventually make this initialize jetty and all of that...
-    
+    private final Fridge fridge;
+
+    /**
+      * Construct a new Fridginator WebServer
+      * @param fridge The Fridge to run this server off of 
+      */
+    public WebServer(Fridge fridge) {
+        Objects.requireNonNull(fridge);
+        this.fridge = fridge;
+    }
+
+    /**
+      * Set up the HTTP routes that make this work
+      */
+    public void initialize() {
+        staticFiles.location("/public");
+
+        // jetty will start automatically as soon as routes are configured
+        // get(HOME_URL, new GetHomeRoute(gameCenter, templateEngine));
+
+    }
     
 }
