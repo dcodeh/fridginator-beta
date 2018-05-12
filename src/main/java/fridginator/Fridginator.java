@@ -10,10 +10,9 @@ import java.util.Scanner;
 import appl.Fridge;
 import console.Command.ExitCode;
 
-// import static spark.Spark.*;
-
-public class Hellow {
+public class Fridginator {
 	
+    // entry point for fridinator
 	public static void main(String[] args) {
 	    
 	    Fridge f;

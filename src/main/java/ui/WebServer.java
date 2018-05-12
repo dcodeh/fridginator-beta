@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import static spark.Spark.staticFiles;
 import static spark.Spark.get;
 import static spark.Spark.post;
+import static spark.Spark.port;
 
 /**
  * Initializes the set of GET/POST Route handlers needed for Fridginator's
@@ -46,7 +47,12 @@ public class WebServer {
       * Set up the HTTP routes that make this work
       */
     public void initialize() {
+        
+        // point it to the stuff that doesn't change
         staticFiles.location("/public");
+        
+        // TODO change the default port from :4567
+        port(4567);
 
         // jetty will start automatically as soon as routes are configured
 //        get(HOME_URL, new GetHomeRoute(gameCenter, templateEngine));
