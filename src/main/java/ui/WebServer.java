@@ -1,5 +1,12 @@
 package ui;
 
+import java.util.Objects;
+import appl.Fridge;
+
+import static spark.Spark.staticFiles;
+import static spark.Spark.get;
+import static spark.Spark.post;
+
 /**
  * Initializes the set of GET/POST Route handlers needed for Fridginator's
  * Web Interface to work.
@@ -36,7 +43,7 @@ public class WebServer {
         staticFiles.location("/public");
 
         // jetty will start automatically as soon as routes are configured
-        // get(HOME_URL, new GetHomeRoute(gameCenter, templateEngine));
+//        get(HOME_URL, new GetHomeRoute(gameCenter, templateEngine));
 
     }
     
