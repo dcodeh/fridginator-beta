@@ -9,6 +9,7 @@ import static spark.Spark.staticFiles;
 import static spark.Spark.get;
 import static spark.Spark.post;
 import static spark.Spark.port;
+import static spark.Spark.stop;
 
 /**
  * Initializes the set of GET/POST Route handlers needed for Fridginator's
@@ -58,6 +59,10 @@ public class WebServer {
 //        get(HOME_URL, new GetHomeRoute(gameCenter, templateEngine));
         get(SIGNIN_URL, new GetSignInRoute(templateEngine));
         log.config("WebServer initialization complete");
+    }
+    
+    public void terminate() {
+        stop(); // hah, nice
     }
     
 }

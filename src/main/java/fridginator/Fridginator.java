@@ -4,9 +4,11 @@ import java.io.FileInputStream;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import appl.Fridge;
@@ -20,6 +22,8 @@ public final class Fridginator {
 	
     // entry point for fridinator
 	public static void main(String[] args) {
+	    
+	    initializeLogging();
 	    
 	    Fridge f;
 	    String fridginatorPath = "/opt/fridginator/fridge.ser";
@@ -102,9 +106,21 @@ public final class Fridginator {
 	    }
 		
 		stdin.close();
+		webServer.terminate(); // goodbye, jetty
 	}
 	
-	// attribute of this class
+	private static void initializeLogging() {
+	    try {
+	        ClassLoader classLoader = Fridginator.class.getClassLoader();
+	        final InputStream logConfig = classLoader.getResourceAsStream("log.properties");
+	        LogManager.getLogManager().readConfiguration(logConfig);
+	    } catch (Exception e) {
+	        System.err.println("Couldn't initialize the log manager!!");
+	        e.printStackTrace();
+	    }
+    }
+
+    // attribute of this class
 	private final WebServer webServer;
 	
 	/**
