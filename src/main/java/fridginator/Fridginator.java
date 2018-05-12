@@ -1,6 +1,7 @@
 package fridginator;
 
 import java.io.FileInputStream;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -10,9 +11,14 @@ import java.util.logging.Logger;
 
 import appl.Fridge;
 import console.Command.ExitCode;
+import spark.TemplateEngine;
+import spark.template.freemarker.FreeMarkerEngine;
 
 public final class Fridginator {
     public final static Logger log = Logger.getLogger(Fridginator.class.getName());
+    
+    // for rendering Views
+    final TemplateEngine templateEngine = new FreeMarkerEngine();
 	
     // entry point for fridinator
 	public static void main(String[] args) {
