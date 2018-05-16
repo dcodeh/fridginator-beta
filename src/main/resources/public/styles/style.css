@@ -1,3 +1,22 @@
 body {
 	font-size: 12pt;
 }
+
+div.page {
+    text-align: center;
+}
+
+div.page h1 {
+}
+
+div.page p {
+}
+
+form {
+    text-align:center;
+    display:inline-block;
+}
+
+button {
+    text-align:center;
+}
