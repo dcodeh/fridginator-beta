@@ -66,6 +66,7 @@ public final class Fridginator {
 	    final WebServer webServer = new WebServer(f, templateEngine);
 	    final Fridginator fridginator = new Fridginator(webServer);
 	    fridginator.start();
+	    waitForWebServerStartup();
 	    
 		System.out.println("Enter commands:");
 		
@@ -109,7 +110,21 @@ public final class Fridginator {
 		webServer.terminate(); // goodbye, jetty
 	}
 	
-	private static void initializeLogging() {
+	/**
+	 * Just block until Jetty dumps is garbage in stdout
+	 */
+	private static void waitForWebServerStartup() {
+	    System.out.println("Welcome to Fridginator.");
+	    System.out.println("Waiting for Jetty to initialize...");
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            System.err.println("Oi! I was sleeping!!1!");
+        }
+        System.out.println("Done.");
+    }
+
+    private static void initializeLogging() {
 	    try {
 	        ClassLoader classLoader = Fridginator.class.getClassLoader();
 	        final InputStream logConfig = classLoader.getResourceAsStream("log.properties");
