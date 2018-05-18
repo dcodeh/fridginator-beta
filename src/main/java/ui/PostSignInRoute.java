@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import appl.Fridge;
 import model.User;
+import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -19,7 +20,7 @@ import spark.TemplateEngine;
  */
 public class PostSignInRoute implements Route {
     
-    private final String USERNAME = "userName";
+    private final String USERNAME = "username";
     private final String PASSWORD = "password";
     
     private final TemplateEngine templateEngine;
@@ -54,6 +55,8 @@ public class PostSignInRoute implements Route {
         if(user == null) {
             // who dat?
             // TODO render signin page again with error
+            response.redirect(WebServer.HOME_URL);
+            return null;
         }
         
         if(password.equals(user.getPassword())) {
@@ -62,15 +65,14 @@ public class PostSignInRoute implements Route {
             // add the user to the session so their data can be retrieved later
             session.attribute(WebServer.SESSION_USER, user);
             response.redirect(WebServer.LIST_URL);
-            
-            // TODO redner /list
+//            return templateEngine.render(new ModelAndView(vm, GetListRoute.VIEW_NAME));
+            return null;
         } else {
             // sorry, you're not on the list
             // TODO render /signIn
+            response.redirect(WebServer.HOME_URL);
+            return null;
         }
-        
-        // probably won't get to here
-        return null;
     }
 
 }

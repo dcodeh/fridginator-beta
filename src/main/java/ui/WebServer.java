@@ -27,6 +27,8 @@ public class WebServer {
     // GET URL Patterns
     public static final String HOME_URL = "/";
     public static final String LIST_URL = "/list";
+    public static final String SIGNIN_URL = "/signIn";
+    public static final String SIGNOUT_URL = "/signOut";
     public static final String EDIT_LIST_URL = "/editList";
     
     private final Fridge fridge;
@@ -55,7 +57,19 @@ public class WebServer {
         port(4567);
 
         // jetty will start automatically as soon as routes are configured
+        
+        // 
+        // Routes related to signing in and out
+        //
         get(HOME_URL, new GetSignInRoute(templateEngine));
+        post(SIGNIN_URL, new PostSignInRoute(templateEngine, fridge));
+        post(SIGNOUT_URL, new PostSignOutRoute(templateEngine, fridge));
+
+        //
+        // Routes related to using the thing once logged in
+        //
+        get(LIST_URL, new GetListRoute(templateEngine));
+        
         log.config("WebServer initialization complete");
     }
     

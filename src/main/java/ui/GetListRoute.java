@@ -11,22 +11,20 @@ import spark.Session;
 import spark.TemplateEngine;
 
 /**
- * Why didn't I start with this one?
+ * Get the list page (incomplete for now)
  * @author dcodeh
  *
  */
-public class GetSignInRoute implements Route {
+public class GetListRoute implements Route {
 
     public static final String TITLE_ATTR = "title";
-    public static final String VERSION_ATTR = "version";
-    public static final String VIEW_NAME = "signIn.ftl"; 
+    public static final String VIEW_NAME = "list.ftl"; 
     
-    private static final String TITLE = "Sign In";
-    private static final String VERSION = "Version 0.1";
+    private static final String TITLE = "My List";
     
     private final TemplateEngine templateEngine;
     
-    public GetSignInRoute(TemplateEngine te) {
+    public GetListRoute(TemplateEngine te) {
         this.templateEngine = te;
     }
     
@@ -43,15 +41,17 @@ public class GetSignInRoute implements Route {
         
         final Map<String, Object> vm = new HashMap<String, Object>();
         vm.put(TITLE_ATTR, TITLE);
-        vm.put(VERSION_ATTR, VERSION);
         
         if(session.attribute(WebServer.SESSION_USER) != null) {
-            // this person has already signed in, and has an active session
-            response.redirect(WebServer.LIST_URL); // whooooosh...go to the list page
-            return null; // shhhhh, compiler!
-        } else {
-            // render the login form
+            // this person is signed in, and has an active session
+            // show them their list
+            // TODO make this actually a list
             return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
+        } else {
+            // You're kind isn't welcome here
+            // kick 'em back to the login form
+            response.redirect(WebServer.HOME_URL);
+            return null;
         }
     }
 
