@@ -8,6 +8,11 @@
     </head>
     
     <body>
+    
+        <#if message??>
+            <div class="message">${message}</div>
+        </#if>
+    
         <div class="page">
             <h1>My List</h1>
 

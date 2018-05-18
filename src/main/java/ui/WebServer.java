@@ -21,8 +21,8 @@ public class WebServer {
     private final static Logger log = Logger.getLogger(WebServer.class.getName());
 
     // session attributes
-    public final static String SESSION_USER = "User";
-    public final static String SESSION_MESSAGE = "Message";
+    public final static String SESSION_USER = "user";
+    public final static String SESSION_MESSAGE = "message";
     
     // GET URL Patterns
     public static final String HOME_URL = "/";
