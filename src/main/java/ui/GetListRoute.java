@@ -3,6 +3,8 @@ package ui;
 import java.util.HashMap;
 import java.util.Map;
 
+import fridginator.SessionMessageHelper;
+import fridginator.SessionMessageHelper.MessageType;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -46,10 +48,12 @@ public class GetListRoute implements Route {
             // this person is signed in, and has an active session
             // show them their list
             // TODO make this actually a list
+            SessionMessageHelper.displaySessionMessages(session, vm);
             return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
         } else {
             // You're kind isn't welcome here
             // kick 'em back to the login form
+            SessionMessageHelper.addSessionMessage(session, "You are not logged in.", MessageType.error);
             response.redirect(WebServer.HOME_URL);
             return null;
         }

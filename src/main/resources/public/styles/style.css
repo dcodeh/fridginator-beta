@@ -12,7 +12,12 @@ div.page h1 {
 div.page p {
 }
 
-div.message {
+div.info {
+    text-align: center;
+    color: gray;
+}
+
+div.error {
     text-align: center;
     color: red;
 }

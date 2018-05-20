@@ -3,6 +3,8 @@ package ui;
 import java.util.HashMap;
 import java.util.Map;
 
+import fridginator.SessionMessageHelper;
+import fridginator.SessionMessageHelper.MessageType;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -47,10 +49,12 @@ public class GetSignInRoute implements Route {
         
         if(session.attribute(WebServer.SESSION_USER) != null) {
             // this person has already signed in, and has an active session
+            SessionMessageHelper.addSessionMessage(session, "Welcome back!", MessageType.info);
             response.redirect(WebServer.LIST_URL); // whooooosh...go to the list page
             return null; // shhhhh, compiler!
         } else {
             // render the login form
+            SessionMessageHelper.displaySessionMessages(session, vm);
             return templateEngine.render(new ModelAndView(vm, VIEW_NAME));
         }
     }

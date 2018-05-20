@@ -10,7 +10,7 @@
     <body>
     
         <#if message??>
-            <div class="message">${message}</div>
+            <div class="${messageType}">${message}</div>
         </#if>
     
         <div class="page">

@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Objects;
 
 import appl.Fridge;
+import fridginator.SessionMessageHelper;
+import fridginator.SessionMessageHelper.MessageType;
 import model.User;
 import spark.ModelAndView;
 import spark.Request;
@@ -22,6 +24,7 @@ public class PostSignInRoute implements Route {
     
     private final String USERNAME = "username";
     private final String PASSWORD = "password";
+    private final String LOGIN_UNSUCCESSFUL = "Unknown username or password!";
     
     private final TemplateEngine templateEngine;
     private final Fridge fridge;
@@ -54,7 +57,7 @@ public class PostSignInRoute implements Route {
         
         if(user == null) {
             // who dat?
-            // TODO render signin page again with error
+            SessionMessageHelper.addSessionMessage(session, LOGIN_UNSUCCESSFUL, MessageType.error);
             response.redirect(WebServer.HOME_URL);
             return null;
         }
@@ -65,11 +68,10 @@ public class PostSignInRoute implements Route {
             // add the user to the session so their data can be retrieved later
             session.attribute(WebServer.SESSION_USER, user);
             response.redirect(WebServer.LIST_URL);
-//            return templateEngine.render(new ModelAndView(vm, GetListRoute.VIEW_NAME));
             return null;
         } else {
             // sorry, you're not on the list
-            // TODO render /signIn
+            SessionMessageHelper.addSessionMessage(session, LOGIN_UNSUCCESSFUL, MessageType.error);
             response.redirect(WebServer.HOME_URL);
             return null;
         }
