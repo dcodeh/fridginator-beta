@@ -269,7 +269,26 @@ public class Fridge implements java.io.Serializable {
             
             Number quantityNeededNumber = itemsNeeded.get(item);
             double quantityNeeded = quantityNeededNumber.doubleValue();
-                        
+            PurchasableQuantity quantityToUse = null;
+            
+            // first see if there's an exact match for the quantity we need
+            for(PurchasableQuantity pq : item.getPurchasableQuantities()) {
+                if(pq.getAmount().doubleValue() == quantityNeeded) { 
+                    quantityToUse = pq;
+                    break;
+                } else if(pq.getAmount().doubleValue() > quantityNeeded) {
+                    // already passed it, 
+                    break;
+                }
+            }
+            
+            // no exact match, try some others
+            if(quantityToUse == null) {
+                
+            }
+            
+            // assign it to someone
+            
         }
         
         
