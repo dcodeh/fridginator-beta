@@ -13,6 +13,7 @@ import console.InventoryCommand;
 import console.ItemCommand;
 import console.ItemDeleteCommand;
 import console.ItemsCommand;
+import console.ListGenCommand;
 import console.PasswdCommand;
 import console.QtyCommand;
 import console.ShareItemCommand;
@@ -26,6 +27,7 @@ import console.UserAddCommand;
 import console.UserRemoveCommand;
 import console.UserReportCommand;
 import model.Item;
+import model.PurchasableQuantity;
 import model.User;
 
 /**
@@ -169,6 +171,7 @@ public class Fridge implements java.io.Serializable {
         commands.put(InventoryCommand.keyword, new InventoryCommand());
         commands.put(QtyCommand.keyword, new QtyCommand());
         commands.put(UsageCommand.keyword, new UsageCommand());
+        commands.put(ListGenCommand.keyword, new ListGenCommand());
     }
 
     public Collection<Command> getCommands() {
@@ -201,6 +204,80 @@ public class Fridge implements java.io.Serializable {
         
         // welp, didn't find it
         return null;
+    }
+    
+    /**
+     * This method automatically adds shared items to users' lists.
+     * It will try to get the best deal for all of the users involved,
+     * and will balance the cost the best it can.
+     * 
+     * TODO dcodeh consider backtracking in the future
+     * 
+     * Pseudocode:
+     * - First, check through all of the items in the fridge to populate the global
+     *   shopping list. 
+     * - For each predictable item, calculate the amount we need, and add it to the list.
+     * - For each unpredictable item, if we have less than or equal to the critical 
+     *   quantity, calculate the amount we need to get back to the desired amount, and add
+     *   it to the list.
+     * 
+     * - Now, go through each item we need on the global list, and assign a quantity to a user
+     * - Determine a Quantity to use
+     *      - if the amount we need is equal to a purchasable quantity, use that quantity
+     *      - otherwise, while the quantity needed is greater than 0 
+     *          - start with the biggest quantity (best deal), back to top
+     *          - if we went over the desired quantity by less than the smallest purchasable quantity, use it
+     *          - otherwise, try again with a smaller one
+     *          
+     * - When assigning an item to a user, assign it to a user who shares the item whose
+     *   list cost is the lowest
+     * 
+     */
+    public void generateSharedLists() {
+        
+        // determine the items we need
+        HashMap<Item, Number> itemsNeeded = new HashMap<Item, Number>();
+        for(Item item : this.getItems()) {
+            
+            if(item.getIsPredictable()) {
+                // determine the amount we need
+                double difference = item.getDesiredQty().doubleValue() - item.getQuantity().doubleValue();
+                
+                // only add it to the list if it's half of the smallest PQ
+                PurchasableQuantity smallestPQ = null;
+                for(PurchasableQuantity pq : item.getPurchasableQuantities()) {
+                    if(smallestPQ != null) {
+                        if(pq.getAmount().doubleValue() < smallestPQ.getAmount().doubleValue()) {
+                            // we have a new king
+                            smallestPQ = pq;
+                        }
+                    } else {
+                        // this is the first one, so it's automatically the smallest
+                        smallestPQ = pq;
+                    }
+                }
+                
+                if(difference >= smallestPQ.getAmount().doubleValue() / 2) {
+                    // it's worth it
+                    itemsNeeded.put(item, difference);
+                }
+                
+            } else {
+                
+                // only determine if we need this item if it's at or below the critical amount
+                if(item.getQuantity().doubleValue() <= item.getMinQuantity().doubleValue()) {
+                    double difference = item.getDesiredQty().doubleValue() - item.getQuantity().doubleValue();
+                    
+                    itemsNeeded.put(item, difference); 
+                    
+                }
+                
+            }
+            
+        }
+        
+        
+        
     }
     
 }
