@@ -2,11 +2,8 @@ package model;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Objects;
-
-import fridginator.Constants;
-
+import java.util.TreeSet;
 /**
  * This class is the common ancestor of all items in the fridge.
  * @author dcodeh
@@ -75,7 +72,7 @@ public abstract class Item implements java.io.Serializable {
     /**
      * The unit sizes that you can buy in this item
      */
-    protected HashSet<PurchasableQuantity> purchasableQuantities;
+    protected TreeSet<PurchasableQuantity> purchasableQuantities;
     
     /**
      * The current amount you have in stock right now.
@@ -147,15 +144,15 @@ public abstract class Item implements java.io.Serializable {
      * Just grab the whole list of purchasable quantities...brute force. I like it. 
      * @return The whole list
      */
-    public HashSet<PurchasableQuantity> getPurchasableQuantities() {
+    public TreeSet<PurchasableQuantity> getPurchasableQuantities() {
         return this.purchasableQuantities;
     }
     
     /**
-     * Just set the whole new list by bute force...I like your style.
+     * Just set the whole new list by brute force...I like your style.
      * @param newSet The new set of purchasable quantities.
      */
-    public void setPurchasableQuantities(HashSet<PurchasableQuantity> newSet) {
+    public void setPurchasableQuantities(TreeSet<PurchasableQuantity> newSet) {
         this.purchasableQuantities = newSet;
     }
     
@@ -305,5 +302,13 @@ public abstract class Item implements java.io.Serializable {
 
     public void setIsPredictable(boolean p) {
         this.predictable = p;
+    }
+    
+    public PurchasableQuantity getSmallestPurchasableQuantity() {
+        return purchasableQuantities.last();
+    }
+    
+    public PurchasableQuantity getLargestPurchasableQuantity() {
+        return purchasableQuantities.first();
     }
 }

@@ -1,12 +1,13 @@
 package console;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Scanner;
+import java.util.TreeSet;
 
 import appl.Fridge;
 import model.FractionalItem;
 import model.Item;
+import model.PQComparator;
 import model.PurchasableQuantity;
 import model.WholeItem;
 
@@ -53,7 +54,7 @@ public class ItemCommand extends Command {
             minAmount = getMinimumAmount(isNew, unit, item);
         }
         
-        HashSet<PurchasableQuantity> purchasable = getPurchasableQuantities(isNew, item, unit, isWholeItem);
+        TreeSet<PurchasableQuantity> purchasable = getPurchasableQuantities(isNew, item, unit, isWholeItem);
         
         // give birth to the new items down here (only if isNew)
         if(isNew) {
@@ -115,9 +116,9 @@ public class ItemCommand extends Command {
      * @param isWhole Whether or not to truncate input values
      * @return The set of purchasable quantities
      */
-    private HashSet<PurchasableQuantity> getPurchasableQuantities(boolean isNew, Item item, String unit, boolean isWhole) {
-        HashSet<PurchasableQuantity> purchasable = new HashSet<PurchasableQuantity>();
-                
+    private TreeSet<PurchasableQuantity> getPurchasableQuantities(boolean isNew, Item item, String unit, boolean isWhole) {
+        TreeSet<PurchasableQuantity> purchasable = new TreeSet<PurchasableQuantity>(new PQComparator());
+
         String entry;
         boolean validInput = false;
         ArrayList<Double> quantities = null;

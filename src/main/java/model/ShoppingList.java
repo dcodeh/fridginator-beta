@@ -26,11 +26,11 @@ public class ShoppingList implements java.io.Serializable {
     /**
      * All of the items the user should buy for his/her room mates
      */
-    private HashMap<Item, Boolean> sharedItems;
+    private HashMap<Item, ShoppingListItem> sharedItems;
     
     public ShoppingList() {
         personalItems = new HashMap<String, Boolean>();
-        sharedItems = new HashMap<Item, Boolean>();
+        sharedItems = new HashMap<Item, ShoppingListItem>();
     }
     
     /**
@@ -45,8 +45,8 @@ public class ShoppingList implements java.io.Serializable {
     /**
      * @param i The shared (tracked) item to add to a user's shopping list
      */
-    public void addSharedItem(Item i) {
-        sharedItems.put(i, false);
+    public void addSharedItem(Item i, PurchasableQuantity pq) {
+        sharedItems.put(i, new ShoppingListItem(pq));
     }
     
     /**
@@ -68,7 +68,7 @@ public class ShoppingList implements java.io.Serializable {
      * Swap out the whole list!
      * @param list
      */
-    public void setSharedList(HashMap<Item, Boolean> list) {
+    public void setSharedList(HashMap<Item, ShoppingListItem> list) {
         this.sharedItems = list;
     }
     
@@ -91,6 +91,6 @@ public class ShoppingList implements java.io.Serializable {
      * @param checked Whether or not it's checked
      */
     public void setSharedItemCheckStatus(Item i, boolean checked) {
-        sharedItems.replace(i, checked);
+        sharedItems.get(i).setIsCheckedOff(checked);
     }
 }

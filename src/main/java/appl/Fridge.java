@@ -244,19 +244,7 @@ public class Fridge implements java.io.Serializable {
                 double difference = item.getDesiredQty().doubleValue() - item.getQuantity().doubleValue();
                 
                 // only add it to the list if it's half of the smallest PQ
-                PurchasableQuantity smallestPQ = null;
-                for(PurchasableQuantity pq : item.getPurchasableQuantities()) {
-                    if(smallestPQ != null) {
-                        if(pq.getAmount().doubleValue() < smallestPQ.getAmount().doubleValue()) {
-                            // we have a new king
-                            smallestPQ = pq;
-                        }
-                    } else {
-                        // this is the first one, so it's automatically the smallest
-                        smallestPQ = pq;
-                    }
-                }
-                
+                PurchasableQuantity smallestPQ = item.getSmallestPurchasableQuantity();
                 if(difference >= smallestPQ.getAmount().doubleValue() / 2) {
                     // it's worth it
                     itemsNeeded.put(item, difference);
@@ -276,6 +264,13 @@ public class Fridge implements java.io.Serializable {
             
         }
         
+        // Start assigning items to users
+        for(Item item : itemsNeeded.keySet()) {
+            
+            Number quantityNeededNumber = itemsNeeded.get(item);
+            double quantityNeeded = quantityNeededNumber.doubleValue();
+                        
+        }
         
         
     }
