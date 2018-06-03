@@ -125,5 +125,13 @@ public class User implements java.io.Serializable {
     public int getNumSharedItems() {
         return sharedItems.size();
     }
+    
+    public double getShoppingListSharedCost() {
+        return list.getsharedListCost();
+    }
+    
+    public void assignSharedItem(Item i, PurchasableQuantity pq) {
+        list.addSharedItem(i, pq);
+    }
 
 }

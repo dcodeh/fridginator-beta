@@ -28,9 +28,16 @@ public class ShoppingList implements java.io.Serializable {
      */
     private HashMap<Item, ShoppingListItem> sharedItems;
     
+    
+    /**
+     * The total amount that this user is expected to pay for shopping this week.
+     */
+    private double sharedCost;
+    
     public ShoppingList() {
         personalItems = new HashMap<String, Boolean>();
         sharedItems = new HashMap<Item, ShoppingListItem>();
+        sharedCost = 0.0;
     }
     
     /**
@@ -47,6 +54,17 @@ public class ShoppingList implements java.io.Serializable {
      */
     public void addSharedItem(Item i, PurchasableQuantity pq) {
         sharedItems.put(i, new ShoppingListItem(pq));
+        sharedCost += pq.getPrice();
+    }
+    
+    /**
+     * @param i The shared item to remove, if it exists 
+     */
+    public void removeSharedItem(Item i) {
+        if(sharedItems.containsKey(i)) {
+            sharedCost -= sharedItems.get(i).getPurchasableQuantity().getPrice();
+            sharedItems.remove(i);
+        }
     }
     
     /**
@@ -92,5 +110,13 @@ public class ShoppingList implements java.io.Serializable {
      */
     public void setSharedItemCheckStatus(Item i, boolean checked) {
         sharedItems.get(i).setIsCheckedOff(checked);
+    }
+    
+    /**
+     * See how much this user is expected to pay for their shared items.
+     * @return
+     */
+    public double getsharedListCost() {
+        return this.sharedCost;
     }
 }
