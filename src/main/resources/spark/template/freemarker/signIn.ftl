@@ -2,6 +2,7 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${title} | Fridginator</title>
         <link rel="stylesheet" type="text/css" href="/styles/style.css">
         <link rel="icon" href="/images/favicon.png">
