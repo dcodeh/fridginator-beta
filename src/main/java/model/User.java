@@ -133,5 +133,13 @@ public class User implements java.io.Serializable {
     public void assignSharedItem(Item i, PurchasableQuantity pq) {
         list.addSharedItem(i, pq);
     }
+    
+    public void clearPersonalList() {
+        this.list.clearPersonalList();
+    }
+    
+    public void clearSharedList() {
+        this.list.clearSharedList();
+    }
 
 }

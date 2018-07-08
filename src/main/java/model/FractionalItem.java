@@ -108,7 +108,12 @@ public class FractionalItem extends Item {
 
     @Override
     public Number getUserExpUsage(User u) {
-        return usersSharing.get(u).doubleValue();
+        if(predictable) {
+            return usersSharing.get(u).doubleValue();
+        } else {
+            // TODO dcodeh this is a little bit of a band aid
+            return 0.0; // we don't track usage for unpredictable items
+        }
     }
 
 }

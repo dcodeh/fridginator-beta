@@ -19,6 +19,7 @@ public class ListGenCommand extends Command {
 
     @Override
     public ExitCode doAction(String[] args, Fridge fridge) {
+        fridge.clearUserSharedLists();
         fridge.generateSharedLists();
         System.out.println("Done.");
         return ExitCode.SUCCESS;

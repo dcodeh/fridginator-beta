@@ -107,6 +107,6 @@ public class PurchasableQuantity implements java.io.Serializable {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(unit, amount);
+        return Objects.hash(unit, amount, price);
     }
 }

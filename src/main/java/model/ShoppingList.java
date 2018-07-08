@@ -75,6 +75,13 @@ public class ShoppingList implements java.io.Serializable {
     }
     
     /**
+     * Screw your roommates! Don't buy eggs ever again
+     */
+    public void clearSharedList() {
+        this.sharedItems.clear();
+    }
+    
+    /**
      * Swap out the whole list
      * @param list
      */

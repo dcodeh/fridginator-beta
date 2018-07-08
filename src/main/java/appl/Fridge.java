@@ -337,5 +337,11 @@ public class Fridge implements java.io.Serializable {
         }
 
     }
+    
+    public void clearUserSharedLists() {
+        for(User u : users.values()) {
+            u.clearSharedList();
+        }
+    }
 
 }
