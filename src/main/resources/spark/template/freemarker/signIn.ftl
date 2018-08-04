@@ -20,9 +20,9 @@
             <form action="./signIn" method="POST">
                 Enter your credentials to log in.
                 <br/>
-                <input name="username" value="Username" type="text"/>
+                <input name="username" placeholder="Username" type="text"/>
                 <br/>
-                <input name="password" value="Password" type="password"/>
+                <input name="password" placeholder="Password" type="password"/>
                 <br/>
                 <button type="submit">Log In</button>
             </form>
