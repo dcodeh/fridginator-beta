@@ -52,10 +52,23 @@ public class ShoppingList implements java.io.Serializable {
     }
     
     /**
+     * Adds a shared item to a user's list. Quantity will be added if
+     * an item already exists.
      * @param i The shared (tracked) item to add to a user's shopping list
      */
     public void addSharedItem(Item i, PurchasableQuantity pq) {
-        sharedItems.put(i, new ShoppingListItem(pq));
+        ShoppingListItem listItem = sharedItems.get(i);
+        
+        if(listItem == null) {
+            sharedItems.put(i, new ShoppingListItem(pq));
+        } else {
+            PurchasableQuantity existingPQ = listItem.getPurchasableQuantity();
+            PurchasableQuantity combinedPQ = new PurchasableQuantity(pq.getUnit(), 
+                                                                     pq.getAmount().doubleValue() + existingPQ.getAmount().doubleValue(), 
+                                                                     pq.getPrice() + existingPQ.getPrice());
+            sharedItems.put(i, new ShoppingListItem(combinedPQ));
+        }
+        
         sharedCost += pq.getPrice();
     }
     
