@@ -1,7 +1,6 @@
 package console;
 
 import appl.Fridge;
-import fridginator.Constants;
 import fridginator.PasswordHelper;
 import model.User;
 

@@ -3,7 +3,6 @@ package console;
 import java.util.Iterator;
 
 import appl.Fridge;
-import model.Item;
 import model.User;
 
 /**
@@ -41,7 +40,9 @@ public class UserReportCommand extends Command {
             totalSpent += u.getMoneySpent();
             
         }
-        
+        System.out.println("-------------");
+        System.out.printf("Total Spent: $%.2f\n"
+                        + "TotalSaved: $%.2f\n", totalSpent, totalSaved);
         System.out.println("------------- \n" + 
                            "End of Report");
         

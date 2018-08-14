@@ -405,15 +405,6 @@ public class ItemCommand extends Command {
                                "## leave blank for no change ##");
         }
     }
-    
-    /**
-     * Be a good citizen. Always close your resources when you're done with them.
-     */
-    private void cleanup() {
-        if(stdin != null) {
-            stdin.close();
-        }
-    }
 
 }
 

@@ -2,10 +2,8 @@ package console;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 import appl.Fridge;
-import fridginator.PasswordHelper;
 import model.Item;
 import model.User;
 

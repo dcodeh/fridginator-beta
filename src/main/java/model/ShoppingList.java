@@ -1,6 +1,8 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Stores items that a user should buy for themselves and for their room mates.
@@ -125,5 +127,41 @@ public class ShoppingList implements java.io.Serializable {
      */
     public double getsharedListCost() {
         return this.sharedCost;
+    }
+
+    public HashMap<Item, ShoppingListItem> getSharedList() {
+        return this.sharedItems;
+    }
+    
+    /**
+     * @return a list of the information needed to display shared items
+     * on the list page.
+     */
+    public List<SharedItemObject> getSharedListForTemplate() {
+        ArrayList<SharedItemObject> sharedList = new ArrayList<>();
+        
+        for(Item item : sharedItems.keySet()) {
+            ShoppingListItem shoppingListItem = sharedItems.get(item);
+            PurchasableQuantity pq = shoppingListItem.getPurchasableQuantity();
+            sharedList.add(new SharedItemObject(item.getName(), pq.getAmount(),
+                                                pq.getPrice(), pq.getUnit(),
+                                                shoppingListItem.getIsCheckedOff()));
+        }
+        
+        return sharedList;
+    }
+    
+    /**
+     * @return a list of information needed to display personal items 
+     * on the list page
+     */
+    public List<PersonalItemObject> getPersonalListForTemplate() {
+        ArrayList<PersonalItemObject> personalList = new ArrayList<>();
+        
+        for(String item : personalItems.keySet()) {
+            personalList.add(new PersonalItemObject(item, personalItems.get(item)));
+        }
+        
+        return personalList;
     }
 }

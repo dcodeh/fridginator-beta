@@ -4,6 +4,16 @@ import java.util.Date;
 
 public class FractionalItem extends Item {
 
+    /*
+     * Used to determine if the serialized objects are compatible at deserialization time.
+     * This should be changed any time serialized fields are changed!
+     * 
+     * History:
+     * Version  Value       Notes
+     * 0.1      1L          Initial version
+     */
+    private static final long serialVersionUID = 1L;
+
     public FractionalItem(String name, String unit, double expWeeklyUsage, double weeklyUsage, double desiredQty, double quantity, boolean predictable, double minQty) {
         super(name, unit, predictable, false /* isWhole */);
         this.expWeeklyUsage = expWeeklyUsage;

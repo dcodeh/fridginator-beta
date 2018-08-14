@@ -1,14 +1,11 @@
 package ui;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 import appl.Fridge;
 import fridginator.SessionMessageHelper;
 import fridginator.SessionMessageHelper.MessageType;
 import model.User;
-import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -26,6 +23,7 @@ public class PostSignInRoute implements Route {
     private final String PASSWORD = "password";
     private final String LOGIN_UNSUCCESSFUL = "Unknown username or password!";
     
+    @SuppressWarnings("unused")
     private final TemplateEngine templateEngine;
     private final Fridge fridge;
     
@@ -47,9 +45,7 @@ public class PostSignInRoute implements Route {
      */
     public Object handle(Request request, Response response) throws Exception {
         final Session session = request.session();
-        
-        final Map<String, Object> vm = new HashMap<String, Object>();
-        
+               
         String username = request.queryParams(USERNAME);
         String password = request.queryParams(PASSWORD);
         

@@ -1,7 +1,6 @@
 package console;
 
 import appl.Fridge;
-import fridginator.Constants;
 
 /**
  * Closes stdin and ends the session

@@ -1,14 +1,11 @@
 package ui;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 import appl.Fridge;
 import fridginator.SessionMessageHelper;
 import fridginator.SessionMessageHelper.MessageType;
 import model.User;
-import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -23,7 +20,10 @@ import static spark.Spark.halt;
  */
 public class PostSignOutRoute implements Route {
     
+    @SuppressWarnings("unused")
     private final TemplateEngine templateEngine;
+    
+    @SuppressWarnings("unused")
     private final Fridge fridge;
     
     /**
@@ -44,9 +44,7 @@ public class PostSignOutRoute implements Route {
      */
     public Object handle(Request request, Response response) throws Exception {
         final Session session = request.session();
-        
-        final Map<String, Object> vm = new HashMap<String, Object>();
-        
+                
         User user = (User) session.attribute(WebServer.SESSION_USER);
         
         if(user != null) {

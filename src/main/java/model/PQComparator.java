@@ -6,7 +6,15 @@ import java.util.Comparator;
  * Comparator for keeping PurchasableQuantities in order
  * @author dcodeh
  */
-public class PQComparator implements Comparator<PurchasableQuantity> {
+public class PQComparator implements Comparator<PurchasableQuantity>, java.io.Serializable {
+
+    /*
+     * Used to determine if the serialized objects are compatible at deserialization
+     * time. This should be changed any time serialized fields are changed!
+     * 
+     * History: Version Value Notes 0.1 1L Initial version
+     */
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@inheritDoc}

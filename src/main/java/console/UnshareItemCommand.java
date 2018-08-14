@@ -1,7 +1,5 @@
 package console;
 
-import java.util.Scanner;
-
 import appl.Fridge;
 import model.Item;
 import model.User;

@@ -1,10 +1,7 @@
 package console;
 
 import appl.Fridge;
-import console.Command.ExitCode;
-import fridginator.Constants;
 import fridginator.PasswordHelper;
-import model.Item;
 import model.User;
 
 /**

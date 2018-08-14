@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Comparator;
 import java.util.Objects;
 
 /**
@@ -108,5 +107,15 @@ public class PurchasableQuantity implements java.io.Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(unit, amount, price);
+    }
+    
+    /**
+     * @return A nicely formatted string with the details this object holds
+     */
+    @Override
+    public String toString() {
+        return String.format("%.2f %s (~$%.2f)", this.getAmount().doubleValue(),
+                             this.getUnit(),
+                             this.getPrice());
     }
 }

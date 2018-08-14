@@ -13,6 +13,7 @@ import console.InventoryCommand;
 import console.ItemCommand;
 import console.ItemDeleteCommand;
 import console.ItemsCommand;
+import console.ListCommand;
 import console.ListGenCommand;
 import console.PasswdCommand;
 import console.QtyCommand;
@@ -172,6 +173,7 @@ public class Fridge implements java.io.Serializable {
         commands.put(QtyCommand.keyword, new QtyCommand());
         commands.put(UsageCommand.keyword, new UsageCommand());
         commands.put(ListGenCommand.keyword, new ListGenCommand());
+        commands.put(ListCommand.keyword, new ListCommand());
     }
 
     public Collection<Command> getCommands() {
