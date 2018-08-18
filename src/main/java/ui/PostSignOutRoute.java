@@ -6,7 +6,6 @@ package ui;
 
 import java.util.Objects;
 
-import appl.Fridge;
 import fridginator.SessionMessageHelper;
 import fridginator.SessionMessageHelper.MessageType;
 import model.User;
@@ -27,16 +26,12 @@ public class PostSignOutRoute implements Route {
     @SuppressWarnings("unused")
     private final TemplateEngine templateEngine;
     
-    @SuppressWarnings("unused")
-    private final Fridge fridge;
-    
     /**
      * @param te The TemplateEngine to use for this route handler
      */
-    public PostSignOutRoute(TemplateEngine te, Fridge f) {
+    public PostSignOutRoute(TemplateEngine te) {
         Objects.requireNonNull(te);
         this.templateEngine = te;
-        this.fridge = f;
     }
 
     /**

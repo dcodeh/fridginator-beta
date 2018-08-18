@@ -68,7 +68,7 @@ public class WebServer {
         //
         get(HOME_URL, new GetSignInRoute(templateEngine));
         post(SIGNIN_URL, new PostSignInRoute(templateEngine, fridge));
-        post(SIGNOUT_URL, new PostSignOutRoute(templateEngine, fridge));
+        post(SIGNOUT_URL, new PostSignOutRoute(templateEngine));
 
         //
         // Routes related to using the thing once logged in

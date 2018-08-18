@@ -159,10 +159,12 @@ public class ShoppingList implements java.io.Serializable {
         
         for(Item item : sharedItems.keySet()) {
             ShoppingListItem shoppingListItem = sharedItems.get(item);
-            PurchasableQuantity pq = shoppingListItem.getPurchasableQuantity();
-            sharedList.add(new SharedItemObject(item.getName(), pq.getAmount(),
-                                                pq.getPrice(), pq.getUnit(),
-                                                shoppingListItem.getIsCheckedOff()));
+            if(shoppingListItem != null) {
+                PurchasableQuantity pq = shoppingListItem.getPurchasableQuantity();
+                sharedList.add(new SharedItemObject(item.getName(), pq.getAmount(),
+                                                    pq.getPrice(), pq.getUnit(),
+                                                    shoppingListItem.getIsCheckedOff()));
+            }
         }
         
         return sharedList;

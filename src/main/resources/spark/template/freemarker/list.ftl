@@ -18,37 +18,49 @@
             <h1>My List</h1>
 
             <form action="./signOut" method="POST">
-                <h2>Personal Items</h2>
+                <#if personalItems??>
+                    <h2>Personal Items</h2>
+                <#else>
+                    <h2>Personal Items (none)</h2>
+                </#if>
                 <div class="list">
 
                     <!-- repeated section for personal items -->
-                    <#list personalItems as item>
-                        <label class="container">${item.getLine()}
-                            <#if ${item.getIsChecked()}>
-                                <input type="checkbox checked="checked">
-                            <#else>
-                                <input type="checkbox"> 
-                            </#if>
-                            <span class="checkmark"></span>
-                        </label>
-                    </#list>
+                    <#if personalItems??>
+                        <#list personalItems as item>
+                            <label class="container">${item.getLine()}
+                                <#if item.getIsChecked()>
+                                    <input type="checkbox checked="checked">
+                                <#else>
+                                    <input type="checkbox"> 
+                                </#if>
+                                <span class="checkmark"></span>
+                            </label>
+                        </#list>
+                    </#if>
                     
                 </div>
 
-                <h2>Shared Items</h2>
+                <#if sharedItems??>
+                    <h2>Shared Items</h2>
+                <#else>
+                    <h2>Shared Items (none)</h2>
+                </#if>
                 <div class="list">
 
                     <!-- repeated section for shared items-->
-                    <#list sharedItems as item>
-                        <label class="container">${item.getLine()}
-                            <#if ${item.getIsChecked()}>
-                                <input type="checkbox checked="checked">
-                            <#else>
-                                <input type="checkbox"> 
-                            </#if>
-                            <span class="checkmark"></span>
-                        </label>
-                    </#list>
+                    <#if sharedItems??>
+                        <#list sharedItems as item>
+                            <label class="container">${item.getLine()}
+                                <#if item.getIsChecked()>
+                                    <input type="checkbox checked="checked">
+                                <#else>
+                                    <input type="checkbox"> 
+                                </#if>
+                                <span class="checkmark"></span>
+                            </label>
+                        </#list>
+                    </#if>
 
                 </div>
 

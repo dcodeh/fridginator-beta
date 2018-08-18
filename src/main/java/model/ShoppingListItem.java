@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.util.Objects;
 
 /**
  * This is the thing that gets added to the users' shopping lists
@@ -40,6 +41,26 @@ public class ShoppingListItem implements java.io.Serializable {
     
     public PurchasableQuantity getPurchasableQuantity() {
         return quantity;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof ShoppingListItem) {
+            ShoppingListItem that = (ShoppingListItem) o;
+            if(this.getIsCheckedOff() == that.getIsCheckedOff() &&
+               this.getPurchasableQuantity().equals(that.getPurchasableQuantity())) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(quantity, isCheckedOff);
     }
     
 }
