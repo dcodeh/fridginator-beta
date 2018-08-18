@@ -1,3 +1,7 @@
+/**
+ * Copyright (c) 2018 David Cody Burrows
+ * See LICENSE file for details
+ */
 package fridginator;
 
 

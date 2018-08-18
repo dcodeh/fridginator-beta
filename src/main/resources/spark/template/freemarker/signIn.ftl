@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- Copyright (c) 2018 David Cody Burrows...See LICENSE file for details -->
+
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
