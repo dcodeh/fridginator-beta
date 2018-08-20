@@ -116,15 +116,6 @@ public class WholeItem extends Item {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if(o instanceof WholeItem) {
-            return super.equals(o);
-        } else {
-            return false;
-        }
-    }
-
-    @Override
     public Integer getUserExpUsage(User u) {
         return usersSharing.get(u).intValue();
     }

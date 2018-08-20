@@ -110,15 +110,6 @@ public class FractionalItem extends Item {
         super.unshareItemWithUser(u);
         // TODO recalculate quantities
     }
-    
-    @Override
-    public boolean equals(Object o) {
-        if(o instanceof FractionalItem) {
-            return super.equals(o);
-        } else {
-            return false;
-        }
-    }
 
     @Override
     public Number getUserExpUsage(User u) {

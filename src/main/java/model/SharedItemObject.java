@@ -36,7 +36,7 @@ public class SharedItemObject implements java.io.Serializable{
     }
     
     public String getLine() {
-        return String.format("%.2f %s %s (~$%.2f)", qty, unit, itemName, price);
+        return String.format("%.2f %s %s (~$%.2f)", qty.doubleValue(), unit, itemName, price.doubleValue());
     }
     
     public boolean getIsChecked() {

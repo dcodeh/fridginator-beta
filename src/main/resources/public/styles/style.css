@@ -52,7 +52,7 @@ input {
     display: block;
     position: relative;
     padding-left: 35px;
-    margin-bottom: 12px;
+    margin-bottom: 22px;
     font-size: 22px;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -60,32 +60,29 @@ input {
     user-select: none;
 }
 
-/* get that default checkbox out of here */
+/* Hide the browser's default checkbox */
 .container input {
     position: absolute;
     opacity: 0;
+    cursor: pointer;
 }
 
-/* nice checkbox */
+/* Create a custom checkbox */
 .checkmark {
     position: absolute;
+    top: 0;
+    left: 0;
     height: 22px;
     width: 22px;
     background-color: #fdede8;
-    top: 0;
-    left: 0;
-}
-
-/* hover */
-.container:hover input ~ .checkmark {
-    background-color: #f29573;
+    border-radius: 4px;
 }
 
 .container input:checked ~ .checkmark {
     background-color: #DD4814;
 }
 
-/* hide checkmark when not checked */
+/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
     content: "";
     position: absolute;
@@ -97,7 +94,7 @@ input {
     display: block;
 }
 
-/* the checkmark itself */
+/* Style the checkmark/indicator */
 .container .checkmark:after {
     left: 7px;
     top: 2px;
