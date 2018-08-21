@@ -56,10 +56,12 @@ public class ListCommand extends Command {
         for(Item item : sharedList.keySet()) {
             ShoppingListItem listItem = sharedList.get(item);
             
-            if(listItem.getIsCheckedOff()) {
-                System.out.println("X " + listItem.getPurchasableQuantity() + " " + item.getName());
-            } else {
-                System.out.println("_ " + listItem.getPurchasableQuantity() + " " + item.getName());
+            if(listItem != null) {
+                if(listItem.getIsCheckedOff()) {
+                    System.out.println("X " + listItem.getPurchasableQuantity() + " " + item.getName());
+                } else {
+                    System.out.println("_ " + listItem.getPurchasableQuantity() + " " + item.getName());
+                }
             }
         }
         System.out.println();

@@ -33,6 +33,10 @@ button {
     height: 50px;
     margin:.4rem;
     min-width: 100px;
+    /* optional -- match the other stuff? */
+    /* background-color:#fdede8;
+    border-radius: 4px;
+    border: none; */
 }
 
 div.list {

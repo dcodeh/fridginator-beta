@@ -278,7 +278,7 @@ public abstract class Item implements java.io.Serializable {
     
     @Override
     public int hashCode() {
-        return Objects.hash(name, unit, expWeeklyUsage, weeklyUsage, desiredQty, minQty, quantity, predictable);
+        return Objects.hash(name, unit, expWeeklyUsage, weeklyUsage, desiredQty, minQty, quantity, predictable, isWhole);
     }
     
     @Override
@@ -294,7 +294,8 @@ public abstract class Item implements java.io.Serializable {
                    this.desiredQty.equals(that.getDesiredQty()) &&
                    this.minQty.equals(that.getMinQuantity()) &&
                    this.quantity.equals(that.getQuantity()) &&
-                   (this.predictable == that.getIsPredictable());
+                   (this.predictable == that.getIsPredictable()) &&
+                   (this.getIsWhole() == that.getIsWhole());
         } else {
             return false;
         }

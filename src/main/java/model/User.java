@@ -113,7 +113,7 @@ public class User implements java.io.Serializable {
     @Override
     public int hashCode() {
         // good 'nuff
-        return Objects.hash(username, password);
+        return Objects.hash(username, password, list);
     }
 
     public int getNumSharedItems() {
@@ -126,6 +126,14 @@ public class User implements java.io.Serializable {
     
     public void assignSharedItem(Item i, PurchasableQuantity pq) {
         list.addSharedItem(i, pq);
+    }
+    
+    public void addPersonalItem(String line) {
+        list.addPersonalItem(line);
+    }
+    
+    public void removePersonalItem(String line) {
+        list.removePersonalItem(line);
     }
     
     public void clearPersonalList() {

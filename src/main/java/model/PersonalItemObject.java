@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.Objects;
+
 /**
  * This class stores all of the information needed by the list page freemarker template.
  * @author dcodeh
@@ -33,6 +35,23 @@ public class PersonalItemObject implements java.io.Serializable {
     
     public String getLine() {
         return this.line;
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(line, checked);
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof PersonalItemObject) {
+            PersonalItemObject that = (PersonalItemObject) o;
+            
+            return this.line.equals(that.getLine()) &&
+                   this.checked == that.getIsChecked();
+        } else {
+            return false;
+        }
     }
 
 }

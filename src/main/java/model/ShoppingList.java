@@ -7,6 +7,7 @@ package model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Stores items that a user should buy for themselves and for their room mates.
@@ -53,6 +54,10 @@ public class ShoppingList implements java.io.Serializable {
      */
     public void addPersonalItem(String line) {
         personalItems.put(line.trim(), false);
+    }
+    
+    public void removePersonalItem(String line) {
+        personalItems.remove(line);
     }
     
     /**
@@ -182,5 +187,21 @@ public class ShoppingList implements java.io.Serializable {
         }
         
         return personalList;
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(personalItems, sharedItems);
+    }
+    
+    @Override 
+    public boolean equals(Object o) {
+        if(o instanceof ShoppingList) {
+            ShoppingList list = (ShoppingList) o;
+            return personalItems.equals(list.getPersonalList()) &&
+                   sharedItems.equals(list.getSharedList());
+        } else {
+            return false;
+        }
     }
 }

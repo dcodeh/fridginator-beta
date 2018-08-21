@@ -20,6 +20,7 @@ import console.ItemsCommand;
 import console.ListCommand;
 import console.ListGenCommand;
 import console.PasswdCommand;
+import console.PersonalItemCommand;
 import console.QtyCommand;
 import console.ShareItemCommand;
 import console.SharedCommand;
@@ -178,6 +179,7 @@ public class Fridge implements java.io.Serializable {
         commands.put(UsageCommand.keyword, new UsageCommand());
         commands.put(ListGenCommand.keyword, new ListGenCommand());
         commands.put(ListCommand.keyword, new ListCommand());
+        commands.put(PersonalItemCommand.keyword, new PersonalItemCommand());
     }
 
     public Collection<Command> getCommands() {
