@@ -39,7 +39,7 @@ public class PersonalItemObject implements java.io.Serializable {
     
     @Override
     public int hashCode() {
-        return Objects.hash(line, checked);
+        return Objects.hash(line);
     }
     
     @Override

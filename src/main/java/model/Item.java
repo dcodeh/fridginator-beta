@@ -28,7 +28,7 @@ public abstract class Item implements java.io.Serializable {
      * The name of this item...what a descriptive name!
      * Best if it doesn't have spaces...
      */
-    protected String name;
+    protected final String name;
     
     /**
      * The unit that this item..what a descriptive name!
@@ -86,7 +86,7 @@ public abstract class Item implements java.io.Serializable {
     /**
      * Predictable items:
      */
-    protected boolean predictable;
+    protected final boolean predictable;
     
     /**
      * Stores all of the users who are sharing this item, and the quantities they expect to use.
@@ -97,6 +97,8 @@ public abstract class Item implements java.io.Serializable {
      * Whether or not the item is whole (should be set by the children
      */
     protected boolean isWhole;
+    
+    private final String uid;
     
     /**
      * Common information for all items....though this item can't be instantiated directly.
@@ -110,6 +112,7 @@ public abstract class Item implements java.io.Serializable {
         this.predictable = predictable;
         this.isWhole = isWhole;
         this.usersSharing = new HashMap<User, Number>();
+        this.uid = name + (predictable ? "f" : "t" ) + System.currentTimeMillis();
     }
 
     /**
@@ -276,9 +279,13 @@ public abstract class Item implements java.io.Serializable {
         this.usersSharing.remove(u);
     }
     
+    public String getUID() {
+        return this.uid;
+    }
+    
     @Override
     public int hashCode() {
-        return Objects.hash(name, unit, expWeeklyUsage, weeklyUsage, desiredQty, minQty, quantity, predictable, isWhole);
+        return Objects.hashCode(uid);
     }
     
     @Override
@@ -286,16 +293,7 @@ public abstract class Item implements java.io.Serializable {
         if(o instanceof Item) {
             Item that = (Item) o;
             
-            // just see if everything is the same...easy
-            return this.name.equals(that.getName()) &&
-                   this.unit.equals(that.getUnit()) && 
-                   this.expWeeklyUsage.equals(that.getExpWeeklyUsage()) &&
-                   this.weeklyUsage.equals(that.getWeeklyUsage()) &&
-                   this.desiredQty.equals(that.getDesiredQty()) &&
-                   this.minQty.equals(that.getMinQuantity()) &&
-                   this.quantity.equals(that.getQuantity()) &&
-                   (this.predictable == that.getIsPredictable()) &&
-                   (this.getIsWhole() == that.getIsWhole());
+            return this.getUID() == that.getUID();
         } else {
             return false;
         }
@@ -303,10 +301,6 @@ public abstract class Item implements java.io.Serializable {
 
     public void setUnit(String unit) {
         this.unit = unit;
-    }
-
-    public void setIsPredictable(boolean p) {
-        this.predictable = p;
     }
     
     public PurchasableQuantity getSmallestPurchasableQuantity() {

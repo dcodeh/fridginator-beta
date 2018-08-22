@@ -26,12 +26,12 @@ public class PurchasableQuantity implements java.io.Serializable {
 	 * The unit string for this item
 	 * e.g. ct, gal, pint, ton, etc.
 	 */
-	private String unit;
+	private final String unit;
 	
 	/**
 	 * The amount of this item, in the units specified
 	 */
-    private Number amount;
+    private final Number amount;
     
     /**
      * How much this thing costs.
@@ -110,7 +110,7 @@ public class PurchasableQuantity implements java.io.Serializable {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(unit, amount, price);
+        return Objects.hash(unit, amount);
     }
     
     /**

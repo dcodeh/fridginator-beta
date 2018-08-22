@@ -293,7 +293,6 @@ public class Fridge implements java.io.Serializable {
 
                 // no exact match, try some others
                 if (quantityToUse == null) {
-                    // TODO dcodeh make sure this is starting with the larest pq
                     for(PurchasableQuantity pq : item.getPurchasableQuantities()) {
                         double difference = quantityNeeded - pq.getAmount().doubleValue();
                         if(difference <= 0) {

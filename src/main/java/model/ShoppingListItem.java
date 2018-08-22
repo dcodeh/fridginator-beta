@@ -25,10 +25,12 @@ public class ShoppingListItem implements java.io.Serializable {
     
     private PurchasableQuantity quantity;
     private boolean isCheckedOff;
+    private final String uid;
     
     public ShoppingListItem(PurchasableQuantity pq) {
         quantity = pq;
         isCheckedOff = false;
+        uid = pq.getUnit() + System.currentTimeMillis();
     }
     
     public void setIsCheckedOff(boolean checked) {
@@ -43,16 +45,15 @@ public class ShoppingListItem implements java.io.Serializable {
         return quantity;
     }
     
+    public String getUID() {
+        return this.uid;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if(o instanceof ShoppingListItem) {
             ShoppingListItem that = (ShoppingListItem) o;
-            if(this.getIsCheckedOff() == that.getIsCheckedOff() &&
-               this.getPurchasableQuantity().equals(that.getPurchasableQuantity())) {
-                return true;
-            } else {
-                return false;
-            }
+            return this.uid == that.getUID();
         } else {
             return false;
         }
@@ -60,7 +61,7 @@ public class ShoppingListItem implements java.io.Serializable {
     
     @Override
     public int hashCode() {
-        return Objects.hash(quantity, isCheckedOff);
+        return Objects.hashCode(uid);
     }
     
 }

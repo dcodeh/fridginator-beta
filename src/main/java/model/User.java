@@ -38,7 +38,7 @@ public class User implements java.io.Serializable {
         moneySaved = 0.0;
         moneySpent = 0.0;
         
-        list = new ShoppingList();
+        list = new ShoppingList(username);
     }
     
     public String getUsername() {
@@ -112,8 +112,7 @@ public class User implements java.io.Serializable {
     
     @Override
     public int hashCode() {
-        // good 'nuff
-        return Objects.hash(username, password, list);
+        return Objects.hash(username);
     }
 
     public int getNumSharedItems() {

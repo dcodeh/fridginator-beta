@@ -41,10 +41,13 @@ public class ShoppingList implements java.io.Serializable {
      */
     private double sharedCost;
     
-    public ShoppingList() {
+    private final String uid;
+    
+    public ShoppingList(String username) {
         personalItems = new HashMap<String, Boolean>();
         sharedItems = new HashMap<Item, ShoppingListItem>();
         sharedCost = 0.0;
+        uid = username + System.currentTimeMillis(); // foolproof UID haha
     }
     
     /**
@@ -189,17 +192,20 @@ public class ShoppingList implements java.io.Serializable {
         return personalList;
     }
     
+    public String getUID() {
+        return this.uid;
+    }
+    
     @Override
     public int hashCode() {
-        return Objects.hash(personalItems, sharedItems);
+        return Objects.hash(uid);
     }
     
     @Override 
     public boolean equals(Object o) {
         if(o instanceof ShoppingList) {
             ShoppingList list = (ShoppingList) o;
-            return personalItems.equals(list.getPersonalList()) &&
-                   sharedItems.equals(list.getSharedList());
+            return this.uid == list.getUID();
         } else {
             return false;
         }
