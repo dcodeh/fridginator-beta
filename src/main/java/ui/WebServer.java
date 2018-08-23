@@ -68,12 +68,14 @@ public class WebServer {
         //
         get(HOME_URL, new GetSignInRoute(templateEngine));
         post(SIGNIN_URL, new PostSignInRoute(templateEngine, fridge));
-        post(SIGNOUT_URL, new PostSignOutRoute(templateEngine));
+        get(SIGNOUT_URL, new GetSignOutRoute(templateEngine));
 
         //
         // Routes related to using the thing once logged in
         //
-        get(LIST_URL, new GetListRoute(templateEngine));
+        get(LIST_URL, new GetShoppingListRoute(templateEngine));
+        post(LIST_URL, new PostShoppingListRoute());
+        get(EDIT_LIST_URL, new GetEditListRoute(templateEngine));
         
         log.config("WebServer initialization complete");
     }

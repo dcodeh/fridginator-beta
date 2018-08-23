@@ -21,7 +21,7 @@ import static spark.Spark.halt;
  * @author dcodeh
  *
  */
-public class PostSignOutRoute implements Route {
+public class GetSignOutRoute implements Route {
     
     @SuppressWarnings("unused")
     private final TemplateEngine templateEngine;
@@ -29,7 +29,7 @@ public class PostSignOutRoute implements Route {
     /**
      * @param te The TemplateEngine to use for this route handler
      */
-    public PostSignOutRoute(TemplateEngine te) {
+    public GetSignOutRoute(TemplateEngine te) {
         Objects.requireNonNull(te);
         this.templateEngine = te;
     }

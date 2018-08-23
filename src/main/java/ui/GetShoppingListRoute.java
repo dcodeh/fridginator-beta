@@ -26,7 +26,7 @@ import spark.TemplateEngine;
  * @author dcodeh
  *
  */
-public class GetListRoute implements Route {
+public class GetShoppingListRoute implements Route {
 
     public static final String TITLE_ATTR = "title";
     public static final String VIEW_NAME = "list.ftl"; 
@@ -37,7 +37,7 @@ public class GetListRoute implements Route {
     
     private final TemplateEngine templateEngine;
     
-    public GetListRoute(TemplateEngine te) {
+    public GetShoppingListRoute(TemplateEngine te) {
         this.templateEngine = te;
     }
     

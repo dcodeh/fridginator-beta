@@ -115,3 +115,20 @@ form {
     max-width: 1024px;
     display: inline-block;
 }
+
+div.edit {
+    text-align:center;
+    padding:20px;
+    margin: auto;
+    width: 90%;
+}
+
+textarea {
+    width: 90%;
+    height: 700px;
+    font-family: serif;
+    font-size: 14pt;
+    border-radius: 7px;
+    border-style: solid;
+    border-color: #fdede8;
+}

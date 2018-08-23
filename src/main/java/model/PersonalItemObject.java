@@ -27,6 +27,7 @@ public class PersonalItemObject implements java.io.Serializable {
     
     public PersonalItemObject(String line, boolean checked) {
         this.line = line;
+        this.checked = checked;
     }
     
     public boolean getIsChecked() {

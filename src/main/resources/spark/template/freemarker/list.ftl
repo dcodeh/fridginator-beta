@@ -17,7 +17,7 @@
         <div class="page">
             <h1>My List</h1>
 
-            <form action="./signOut" method="POST">
+            <form action="./list" method="POST">
                 <#if personalItems??>
                     <h2>Personal Items</h2>
                 <#else>
@@ -30,9 +30,9 @@
                         <#list personalItems as item>
                             <label class="container">${item.getLine()}
                                 <#if item.getIsChecked()>
-                                    <input type="checkbox checked="checked">
+                                    <input type="checkbox" name="${item.getLine()}" checked="checked">
                                 <#else>
-                                    <input type="checkbox"> 
+                                    <input type="checkbox" name="${item.getLine()}">
                                 </#if>
                                 <span class="checkmark"></span>
                             </label>
@@ -53,9 +53,9 @@
                         <#list sharedItems as item>
                             <label class="container">${item.getLine()}
                                 <#if item.getIsChecked()>
-                                    <input type="checkbox checked="checked">
+                                    <input type="checkbox" name="${item.getName()}" checked="checked">
                                 <#else>
-                                    <input type="checkbox"> 
+                                    <input type="checkbox" name="{item.getName()}"> 
                                 </#if>
                                 <span class="checkmark"></span>
                             </label>
