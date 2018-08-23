@@ -20,8 +20,8 @@
                 <form action="./editList" method="POST">
                     <textarea name="listText"><#if listContents??>${listContents}</#if></textarea>
                     <!-- Bottom Buttons -->
-                    <button type="submit">Save</button>
-                    <button type="submit">Exit</button>
+                    <button type="submit" name="save">Save</button>
+                    <button type="submit" name="exit">Exit</button>
                 </form>
             </div>
             

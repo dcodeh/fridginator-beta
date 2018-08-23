@@ -50,6 +50,7 @@ public class PostShoppingListRoute implements Route {
         } else {
             // kick them back to the login page
             SessionMessageHelper.addSessionMessage(session, "You aren't logged in!", MessageType.error);
+            response.redirect(WebServer.SIGNIN_URL);
         }
         
         

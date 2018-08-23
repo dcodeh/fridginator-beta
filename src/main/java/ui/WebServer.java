@@ -76,6 +76,7 @@ public class WebServer {
         get(LIST_URL, new GetShoppingListRoute(templateEngine));
         post(LIST_URL, new PostShoppingListRoute());
         get(EDIT_LIST_URL, new GetEditListRoute(templateEngine));
+        post(EDIT_LIST_URL, new PostEditListRoute());
         
         log.config("WebServer initialization complete");
     }
