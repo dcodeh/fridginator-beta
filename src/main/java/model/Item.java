@@ -6,8 +6,8 @@ package model;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.TreeSet;
+import java.util.UUID;
 /**
  * This class is the common ancestor of all items in the fridge.
  * @author dcodeh
@@ -98,7 +98,7 @@ public abstract class Item implements java.io.Serializable {
      */
     protected boolean isWhole;
     
-    private final String uid;
+    protected final UUID uid;
     
     /**
      * Common information for all items....though this item can't be instantiated directly.
@@ -112,7 +112,7 @@ public abstract class Item implements java.io.Serializable {
         this.predictable = predictable;
         this.isWhole = isWhole;
         this.usersSharing = new HashMap<User, Number>();
-        this.uid = name + (predictable ? "f" : "t" ) + System.currentTimeMillis();
+        this.uid = UUID.randomUUID();
     }
 
     /**
@@ -279,21 +279,25 @@ public abstract class Item implements java.io.Serializable {
         this.usersSharing.remove(u);
     }
     
-    public String getUID() {
+    public UUID getUID() {
         return this.uid;
     }
     
     @Override
     public int hashCode() {
-        return Objects.hashCode(uid);
+        return uid == null ? 0 : uid.hashCode(); // haha
     }
     
     @Override
     public boolean equals(Object o) {
         if(o instanceof Item) {
             Item that = (Item) o;
+            if(uid != null) {
+                return this.getUID().equals(that.getUID());
+            } else {
+                return false;
+            }
             
-            return this.getUID() == that.getUID();
         } else {
             return false;
         }

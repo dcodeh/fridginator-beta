@@ -30,7 +30,7 @@ public class ShoppingListItem implements java.io.Serializable {
     public ShoppingListItem(PurchasableQuantity pq) {
         quantity = pq;
         isCheckedOff = false;
-        uid = pq.getUnit() + System.currentTimeMillis();
+        uid = new String(pq.getUnit() + System.currentTimeMillis());
     }
     
     public void setIsCheckedOff(boolean checked) {
@@ -53,7 +53,7 @@ public class ShoppingListItem implements java.io.Serializable {
     public boolean equals(Object o) {
         if(o instanceof ShoppingListItem) {
             ShoppingListItem that = (ShoppingListItem) o;
-            return this.uid == that.getUID();
+            return this.uid.equals(that.getUID());
         } else {
             return false;
         }

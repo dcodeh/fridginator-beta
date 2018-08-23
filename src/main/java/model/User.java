@@ -104,7 +104,8 @@ public class User implements java.io.Serializable {
             
             // good 'nuff
             return this.username.equals(that.getUsername()) &&
-                   this.password.equals(that.getPassword());
+                    this.password.equals(that.getPassword());
+            
         } else {
             return false;
         }

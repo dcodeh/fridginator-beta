@@ -119,5 +119,14 @@ public class WholeItem extends Item {
     public Integer getUserExpUsage(User u) {
         return usersSharing.get(u).intValue();
     }
+    
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+    
+    @Override public boolean equals(Object o) {
+        return super.equals(o);
+    }
 
 }

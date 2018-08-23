@@ -120,5 +120,15 @@ public class FractionalItem extends Item {
             return 0.0; // we don't track usage for unpredictable items
         }
     }
+    
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
 
 }

@@ -205,7 +205,7 @@ public class ShoppingList implements java.io.Serializable {
     public boolean equals(Object o) {
         if(o instanceof ShoppingList) {
             ShoppingList list = (ShoppingList) o;
-            return this.uid == list.getUID();
+            return this.uid.equals(list.getUID());
         } else {
             return false;
         }
