@@ -49,6 +49,8 @@ public class RestockCommand extends Command {
                             otherUser.saveMoney(pq.getPrice());
                         }
                     }
+                } else {
+                    System.out.println(u.getUsername() + " didn't buy " + i.getName());
                 }
             }
             
