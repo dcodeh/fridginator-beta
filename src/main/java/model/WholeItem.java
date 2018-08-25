@@ -90,7 +90,7 @@ public class WholeItem extends Item {
         int currQty = this.quantity.intValue();
         int deltaQty = qty.intValue();
         
-        this.quantity = currQty - deltaQty;
+        setQuantity(currQty - deltaQty);
     }
 
     @Override
@@ -127,6 +127,14 @@ public class WholeItem extends Item {
     
     @Override public boolean equals(Object o) {
         return super.equals(o);
+    }
+
+    @Override
+    public void incrementQty(Number qty) {
+        int currQty = this.quantity.intValue();
+        int deltaQty = qty.intValue();
+        
+        setQuantity(currQty + deltaQty);
     }
 
 }

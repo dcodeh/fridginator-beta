@@ -267,6 +267,11 @@ public abstract class Item implements java.io.Serializable {
     public abstract void decrementQty(Number qty);
     
     /**
+     * @param qty Increace the amount of this item in the fridge
+     */
+    public abstract void incrementQty(Number qty);
+    
+    /**
      * @param u Share the love with this user
      * @param qty How much love this user wants to use each week.
      */

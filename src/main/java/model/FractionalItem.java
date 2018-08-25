@@ -86,7 +86,7 @@ public class FractionalItem extends Item {
         double currQty = this.quantity.doubleValue();
         double deltaQty = qty.doubleValue();
         
-        this.quantity = currQty - deltaQty;
+        setQuantity(currQty - deltaQty);
     }
 
     @Override
@@ -129,6 +129,14 @@ public class FractionalItem extends Item {
     @Override
     public boolean equals(Object o) {
         return super.equals(o);
+    }
+
+    @Override
+    public void incrementQty(Number qty) {
+        double currQty = this.quantity.doubleValue();
+        double deltaQty = qty.doubleValue();
+        
+        setQuantity(currQty + deltaQty);
     }
 
 }
