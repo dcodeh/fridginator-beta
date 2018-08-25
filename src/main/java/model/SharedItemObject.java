@@ -39,6 +39,10 @@ public class SharedItemObject implements java.io.Serializable{
         return String.format("%.2f %s %s (~$%.2f)", qty.doubleValue(), unit, itemName, price.doubleValue());
     }
     
+    public String getName() {
+        return this.itemName;
+    }
+    
     public boolean getIsChecked() {
         return this.checked;
     }

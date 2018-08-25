@@ -55,7 +55,7 @@
                                 <#if item.getIsChecked()>
                                     <input type="checkbox" name="${item.getName()}" checked="checked">
                                 <#else>
-                                    <input type="checkbox" name="{item.getName()}"> 
+                                    <input type="checkbox" name="${item.getName()}"> 
                                 </#if>
                                 <span class="checkmark"></span>
                             </label>

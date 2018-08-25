@@ -4,11 +4,14 @@
  */
 package ui;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import fridginator.SessionMessageHelper;
 import fridginator.SessionMessageHelper.MessageType;
+import model.Item;
 import model.ShoppingList;
+import model.ShoppingListItem;
 import model.User;
 import spark.Request;
 import spark.Response;
@@ -33,6 +36,7 @@ public class PostShoppingListRoute implements Route {
         if(user != null) {
             ShoppingList shoppingList = user.getShoppingList();
             LinkedHashMap<String, Boolean> personalList = shoppingList.getPersonalList();
+            HashMap<Item, ShoppingListItem> sharedList = shoppingList.getSharedList();
             
             if(request.queryParams(SAVE_ACTION) != null) {
                 response.redirect(WebServer.LIST_URL);
@@ -46,7 +50,11 @@ public class PostShoppingListRoute implements Route {
                 shoppingList.setPersonalItemCheckStatus(item, request.queryParams(item) != null);
             }
             
-            // TODO dcodeh update the shared items too!
+            for(Item item : sharedList.keySet()) {
+                shoppingList.setSharedItemCheckStatus(item, request.queryParams(item.getName()) != null);
+            }
+            
+            
         } else {
             // kick them back to the login page
             SessionMessageHelper.addSessionMessage(session, "You aren't logged in!", MessageType.error);
