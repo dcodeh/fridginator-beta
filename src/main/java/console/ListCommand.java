@@ -5,6 +5,7 @@
 package console;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import appl.Fridge;
 import model.Item;
@@ -41,7 +42,7 @@ public class ListCommand extends Command {
 
         System.out.println(user.getUsername() + "'s personal list items:");
         ShoppingList list = user.getShoppingList();
-        HashMap<String, Boolean> personalList = list.getPersonalList();
+        LinkedHashMap<String, Boolean> personalList = list.getPersonalList();
         for (String item : personalList.keySet()) {
             if (personalList.get(item)) {
                 System.out.println("X " + item);

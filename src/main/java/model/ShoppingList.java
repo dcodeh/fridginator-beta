@@ -6,6 +6,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,7 +29,7 @@ public class ShoppingList implements java.io.Serializable {
     /**
      * All of the items the user wants to buy for themselves
      */
-    private HashMap<String, Boolean> personalItems;
+    private LinkedHashMap<String, Boolean> personalItems;
     
     /**
      * All of the items the user should buy for his/her room mates
@@ -44,7 +45,7 @@ public class ShoppingList implements java.io.Serializable {
     private final String uid;
     
     public ShoppingList(String username) {
-        personalItems = new HashMap<String, Boolean>();
+        personalItems = new LinkedHashMap<String, Boolean>();
         sharedItems = new HashMap<Item, ShoppingListItem>();
         sharedCost = 0.0;
         uid = username + System.currentTimeMillis(); // foolproof UID haha
@@ -112,7 +113,7 @@ public class ShoppingList implements java.io.Serializable {
      * Swap out the whole list
      * @param list
      */
-    public void setPersonalList(HashMap<String, Boolean> list) {
+    public void setPersonalList(LinkedHashMap<String, Boolean> list) {
         this.personalItems = list;
     }
     
@@ -124,7 +125,7 @@ public class ShoppingList implements java.io.Serializable {
         this.sharedItems = list;
     }
     
-    public HashMap<String, Boolean> getPersonalList() {
+    public LinkedHashMap<String, Boolean> getPersonalList() {
         return this.personalItems;
     }
     

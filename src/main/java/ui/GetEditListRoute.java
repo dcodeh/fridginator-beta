@@ -5,6 +5,7 @@
 package ui;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import fridginator.SessionMessageHelper;
@@ -47,7 +48,7 @@ public class GetEditListRoute implements Route {
             User user = (User) session.attribute(WebServer.SESSION_USER);
             
             ShoppingList list = user.getShoppingList();
-            HashMap<String, Boolean> personalList = list.getPersonalList();
+            LinkedHashMap<String, Boolean> personalList = list.getPersonalList();
             
             for(String item : personalList.keySet()) {
                 listText += item + "\n";

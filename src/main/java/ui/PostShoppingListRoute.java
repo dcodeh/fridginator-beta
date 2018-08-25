@@ -4,7 +4,7 @@
  */
 package ui;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import fridginator.SessionMessageHelper;
 import fridginator.SessionMessageHelper.MessageType;
@@ -32,7 +32,7 @@ public class PostShoppingListRoute implements Route {
         
         if(user != null) {
             ShoppingList shoppingList = user.getShoppingList();
-            HashMap<String, Boolean> personalList = shoppingList.getPersonalList();
+            LinkedHashMap<String, Boolean> personalList = shoppingList.getPersonalList();
             
             if(request.queryParams(SAVE_ACTION) != null) {
                 response.redirect(WebServer.LIST_URL);
