@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import console.BackupCommand;
 import console.BlankCommand;
 import console.Command;
 import console.HelpCommand;
@@ -180,6 +181,7 @@ public class Fridge implements java.io.Serializable {
         commands.put(ListGenCommand.keyword, new ListGenCommand());
         commands.put(ListCommand.keyword, new ListCommand());
         commands.put(PersonalItemCommand.keyword, new PersonalItemCommand());
+        commands.put(BackupCommand.keyword, new BackupCommand());
     }
 
     public Collection<Command> getCommands() {
